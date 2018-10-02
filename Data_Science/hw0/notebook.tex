@@ -1,0 +1,1873 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw0}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Before you turn this problem in, make sure everything runs as expected.
+First, \textbf{restart the kernel} (in the menubar, select
+Kernel\(\rightarrow\)Restart) and then \textbf{run all cells} (in the
+menubar, select Cell\(\rightarrow\)Run All).
+
+Make sure you fill in any place that says \texttt{YOUR\ CODE\ HERE} or
+"YOUR ANSWER HERE", as well as your name and collaborators below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{NAME} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weijie Yuan}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{COLLABORATORS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N/A}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{HW0: Introductions}\label{hw0-introductions}
+
+\subsection{Setup, Prerequisites, and
+Classification}\label{setup-prerequisites-and-classification}
+
+\subsection{Due Date: Monday 9/3,
+11:59PM}\label{due-date-monday-93-1159pm}
+
+\subsection{Course Policies}\label{course-policies}
+
+Here are some important course policies. These are also located at
+http://www.ds100.org/fa18/.
+
+\textbf{Collaboration Policy}
+
+Data science is a collaborative activity. While you may talk with others
+about the homework, we ask that you \textbf{write your solutions
+individually}. If you do discuss the assignments with others please
+\textbf{include their names} at the top of your notebook.
+
+\subsection{This Assignment}\label{this-assignment}
+
+Welcome to DS100! Before we work our way through the data science
+lifecycle, we need to ground ourselves in some of the foundations of
+data science. This assignment will cover your working environment, test
+prerequisite understanding and help you create your (first?)
+classification model.
+
+One of the purposes of this homework is to help you diagnose your
+preparedness for the course. You should ask yourself if the math
+questions are too challenging, or if the coding is confusing. The rest
+of this course will rely heavily on these foundations and this homework
+should not be too difficult to complete. If it is, consider reviewing
+supplementary material such as the DS100 textbook.
+
+As you work through this assignment, you will learn:
+
+\begin{itemize}
+\tightlist
+\item
+  Python basics, like defining functions.
+\item
+  How to use the \texttt{numpy} library to compute with arrays of
+  numbers.
+\item
+  Debugging in python and notebook using pdb
+\item
+  Linear algebra, calculus, probability
+\item
+  Basics of classification using KNN
+\end{itemize}
+
+\subsection{Score breakdown}\label{score-breakdown}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Question & Points\tabularnewline
+\midrule
+\endhead
+1a & 1\tabularnewline
+1b & 1\tabularnewline
+1c & 1\tabularnewline
+1d & 1\tabularnewline
+2a & 0.33\tabularnewline
+2b & 0.33\tabularnewline
+2c & 0.33\tabularnewline
+2d & 1\tabularnewline
+3a & 1\tabularnewline
+3b & 1\tabularnewline
+3c & 2\tabularnewline
+4a & 4\tabularnewline
+4b & 1\tabularnewline
+4c & 2\tabularnewline
+4d & 6\tabularnewline
+4e & 4\tabularnewline
+4f & 2\tabularnewline
+4g & 1\tabularnewline
+4h & 2\tabularnewline
+5 & 6\tabularnewline
+Total & 38\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \subsubsection{Running a Cell}\label{running-a-cell}
+
+Try running the following cell. If you are unfamiliar with Jupyter
+Notebooks consider skimming
+\href{http://nbviewer.jupyter.org/github/jupyter/notebook/blob/master/docs/source/examples/Notebook/Notebook\%20Basics.ipynb}{this
+tutorial} or selecting \textbf{Help -\textgreater{} User Interface Tour}
+in the menu above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello World!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hello World!
+
+    \end{Verbatim}
+
+    Even if you are familiar with Jupyter, we strongly encourage you to
+become proficient with keyboard shortcuts (this will save you time in
+the future). To learn about keyboard shortcuts go to \textbf{Help
+-\textgreater{} Keyboard Shortcuts} in the menu above.
+
+Here are a few we like: 1. \texttt{ctrl}+\texttt{return} :
+\emph{Evaluate the current cell} 1. \texttt{shift}+\texttt{return}:
+\emph{Evaluate the current cell and move to the next} 1. \texttt{esc} :
+\emph{command mode} (may need to press before using any of the commands
+below) 1. \texttt{a} : \emph{create a cell above} 1. \texttt{b} :
+\emph{create a cell below} 1. \texttt{dd} : \emph{delete a cell} 1.
+\texttt{m} : \emph{convert a cell to markdown} 1. \texttt{y} :
+\emph{convert a cell to code}
+
+    \subsubsection{Testing your Setup}\label{testing-your-setup}
+
+This cell should run without problems:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{skimage}
+        \PY{k+kn}{import} \PY{n+nn}{skimage}\PY{n+nn}{.}\PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{skimage}\PY{n+nn}{.}\PY{n+nn}{filters}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{1: Prerequisites}\label{prerequisites}
+
+    \subsubsection{Python}\label{python}
+
+Python is the main programming language we'll use in the course. We
+expect that you've taken CS61A, CS8, or an equivalent class, so you
+should be able to explain the following cells. Run them and make sure
+you understand what is happening in each.
+
+If this seems difficult, please review one or more of the following
+materials.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\href{https://docs.python.org/3.5/tutorial/}{Python
+  Tutorial}}: Introduction to Python from the creators of Python.
+\item
+  \textbf{\href{http://composingprograms.com/pages/11-getting-started.html}{Composing
+  Programs Chapter 1}}: This is more of a introduction to programming
+  with Python.
+\item
+  \textbf{\href{http://cs231n.github.io/python-numpy-tutorial/}{Advanced
+  Crash Course}}: A fast crash course which assumes some programming
+  background.
+\end{itemize}
+
+    \paragraph{Mathematical Expressions}\label{mathematical-expressions}
+
+Note that the rocket icon indicates that you should just run the
+following cells.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} This is a comment.}
+        \PY{c+c1}{\PYZsh{} In Python, the ** operator performs exponentiation.}
+        \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{e} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{math}\PY{o}{.}\PY{n}{pi} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 0.3427354792736325
+\end{Verbatim}
+            
+    \paragraph{Output and Printing}\label{output-and-printing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Why didn}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{t this line print?}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{world!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello, cell}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ output!}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hello, world!
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 'Hello, cell output!'
+\end{Verbatim}
+            
+    \paragraph{For Loops}\label{for-loops}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} A for loop repeats a block of code once for each}
+        \PY{c+c1}{\PYZsh{} element in a given collection.}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Odd power of 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+Odd power of 2
+4
+Odd power of 2
+16
+
+    \end{Verbatim}
+
+    \paragraph{List Comprehension}\label{list-comprehension}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ sheep.}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} ['1 sheep.', '2 sheep.', '3 sheep.', '4 sheep.']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [0, 2, 4, 6, 8]
+\end{Verbatim}
+            
+    \paragraph{Defining Functions}\label{defining-functions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{add2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}This docstring explains what this function does: it adds 2 to a number.\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \paragraph{Getting Help}\label{getting-help}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{help}\PY{p}{(}\PY{n}{add2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on function add2 in module \_\_main\_\_:
+
+add2(x)
+    This docstring explains what this function does: it adds 2 to a number.
+
+
+    \end{Verbatim}
+
+    \paragraph{Passing Functions as
+Values}\label{passing-functions-as-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{makeAdder}\PY{p}{(}\PY{n}{amount}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Make a function that adds the given amount to a number.\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{def} \PY{n+nf}{addAmount}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{n}{amount}
+             \PY{k}{return} \PY{n}{addAmount}
+         
+         \PY{n}{add3} \PY{o}{=} \PY{n}{makeAdder}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{add3}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 7
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{makeAdder}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 7
+\end{Verbatim}
+            
+    \paragraph{Anonymous Functions and
+Lambdas}\label{anonymous-functions-and-lambdas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} add4 is very similar to add2, but it\PYZsq{}s been created using a lambda expression.}
+         \PY{n}{add4} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{4}
+         \PY{n}{add4}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 9
+\end{Verbatim}
+            
+    \paragraph{Recursion}\label{recursion}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{fib}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Functions can call themselves recursively.}
+                 \PY{k}{return} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 13
+\end{Verbatim}
+            
+    \subsubsection{Question 1}\label{question-1}
+
+\paragraph{Question 1a}\label{question-1a}
+
+Write a function \texttt{nums\_reversed} that takes in a positive
+integer \texttt{n} and returns a string containing the numbers 1 through
+\texttt{n} including \texttt{n} in reverse order, separated by spaces.
+For example:
+
+\begin{verbatim}
+>>> nums_reversed(5)
+'5 4 3 2 1'
+\end{verbatim}
+
+\textbf{\emph{Note:}} The line \texttt{raise\ NotImplementedError()}
+indicates that the implementation still needs to be added. This is an
+exception derived from \texttt{RuntimeError}. Please comment out that
+line when you have implemented the function.
+
+ The code icon indicates that you should complete the following block of
+code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{nums\PYZus{}reversed}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{list} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+             \PY{n+nb}{list}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{str}\PY{p}{,}\PY{n+nb}{list}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{nums\PYZus{}reversed}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} '5 4 3 2 1'
+\end{Verbatim}
+            
+    Test your code in the cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{assert} \PY{n}{nums\PYZus{}reversed}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 4 3 2 1}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n}{nums\PYZus{}reversed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n}{nums\PYZus{}reversed}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{==}  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 2 1}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \paragraph{Question 1b}\label{question-1b}
+
+Write a function \texttt{string\_splosion} that takes in a non-empty
+string like \texttt{"Code"} and returns a long string containing every
+prefix of the input. For example:
+
+\begin{verbatim}
+>>> string_splosion('Code')
+'CCoCodCode'
+>>> string_splosion('data!')
+'ddadatdatadata!'
+>>> string_splosion('hi')
+'hhi'
+\end{verbatim}
+
+\textbf{Hint:} Try to use recursion. Think about how you might answering
+the following two questions: 1. \textbf{{[}Base Case{]}} What is the
+\texttt{string\_splosion} of the empty string? 1. \textbf{{[}Inductive
+Step{]}} If you had a \texttt{string\_splosion} function for the first
+\(n-1\) characters of your string how could you extend it to the
+\(n^{th}\) character? For example,
+\texttt{string\_splosion("Cod")\ =\ "CCoCod"} becomes
+\texttt{string\_splosion("Code")\ =\ "CCoCodCode"}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{string\PYZus{}splosion}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sep} \PY{o}{=} \PY{p}{[}\PY{n}{string}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{sep}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{string\PYZus{}splosion}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cod}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 'CCoCod'
+\end{Verbatim}
+            
+    Test your code in the cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{assert} \PY{n}{string\PYZus{}splosion}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CCoCodCode}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n}{string\PYZus{}splosion}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ffafadfade}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n}{string\PYZus{}splosion}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Kitten}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KKiKitKittKitteKitten}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{assert} \PY{n}{string\PYZus{}splosion}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ddadatdatadata!}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \paragraph{Question 1c}\label{question-1c}
+
+Write a function \texttt{double100} that takes in a list of integers and
+returns \texttt{True} only if the list has two \texttt{100}s next to
+each other.
+
+\begin{verbatim}
+>>> double100([100, 2, 3, 100])
+False
+>>> double100([2, 3, 100, 100, 5])
+True
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{double100}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{:}
+             \PY{n}{flag}\PY{o}{=}\PY{k+kc}{False}
+             \PY{k}{if} \PY{l+m+mi}{100} \PY{o+ow}{in} \PY{n}{nums}\PY{p}{:}
+                 \PY{n}{index1}\PY{o}{=}\PY{n}{nums}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{nums}\PY{p}{[}\PY{n}{index1}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{100}\PY{p}{:}
+                     \PY{n}{flag}\PY{o}{=}\PY{k+kc}{True}
+             \PY{k}{return} \PY{n}{flag}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{double100}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} False
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{assert} \PY{n}{double100}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{k+kc}{True}
+         \PY{k}{assert} \PY{n}{double100}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{k+kc}{False}
+         \PY{k}{assert} \PY{n}{double100}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{k+kc}{True}
+         \PY{k}{assert} \PY{n}{double100}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \paragraph{Question 1d}\label{question-1d}
+
+Recall the formula for population variance below:
+
+\[\sigma^2 = \frac{\sum_{i=1}^N (x_i - \mu)^2}{N}\]
+
+In this question, we'll ask you to compute the population variance of a
+given list by completing the functions below. For this portion, do not
+use built in numpy functions; we will use numpy to verify our code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{population}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{variance}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{population}\PY{o}{\PYZhy{}}\PY{n}{mean}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{population}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{isclose}
+         
+         \PY{n}{population\PYZus{}0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{population\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{5}
+         
+         \PY{k}{assert} \PY{n}{isclose}\PY{p}{(}\PY{n}{mean}\PY{p}{(}\PY{n}{population\PYZus{}0}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{population\PYZus{}0}\PY{p}{)}\PY{p}{,} \PY{n}{abs\PYZus{}tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{isclose}\PY{p}{(}\PY{n}{mean}\PY{p}{(}\PY{n}{population\PYZus{}1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{population\PYZus{}1}\PY{p}{)}\PY{p}{,} \PY{n}{abs\PYZus{}tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{isclose}\PY{p}{(}\PY{n}{variance}\PY{p}{(}\PY{n}{population\PYZus{}0}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{population\PYZus{}0}\PY{p}{)}\PY{p}{,} \PY{n}{abs\PYZus{}tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{isclose}\PY{p}{(}\PY{n}{variance}\PY{p}{(}\PY{n}{population\PYZus{}1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{population\PYZus{}1}\PY{p}{)}\PY{p}{,} \PY{n}{abs\PYZus{}tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{2: NumPy}\label{numpy}
+
+The \texttt{NumPy} library lets us do fast, simple computing with
+numbers in Python. We assume you have already taken Data 8, so you
+should already be familiar with Numpy. We will not teach Numpy in the
+course.
+
+You should be able to understand the code in the following cells. If
+not, review the following:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://ds100.org/fa17/assets/notebooks/numpy/Numpy_Review.html}{DS100
+  Numpy Review}
+\item
+  \href{http://cs231n.github.io/python-numpy-tutorial/\#numpy}{Condensed
+  Numpy Review}
+\item
+  \href{https://docs.scipy.org/doc/numpy/user/quickstart.html}{The
+  Official Numpy Tutorial}
+\item
+  \href{https://www.inferentialthinking.com/chapters/05/1/Arrays}{The
+  Data 8 Textbook Chapter on Numpy}
+\end{itemize}
+
+    \textbf{Jupyter pro-tip}: Pull up the docs for any function in Jupyter
+by running a cell with the function name and a \texttt{?} at the end:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} np.arange\PY{o}{?}
+\end{Verbatim}
+
+
+    You can close the window at the bottom by pressing \texttt{esc} several
+times.
+
+    \textbf{Another Jupyter pro-tip}: Pull up the docs for any function in
+Jupyter by typing the function name, then
+\texttt{\textless{}Shift\textgreater{}-\textless{}Tab\textgreater{}} on
+your keyboard. Super convenient when you forget the order of the
+arguments to a function. You can press
+\texttt{\textless{}Tab\textgreater{}} multiple times to expand the docs.
+
+Try it on the function below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <function numpy.core.function\_base.linspace>
+\end{Verbatim}
+            
+    You can use the tips above to help you decipher the following code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s take a 20\PYZhy{}sided die...}
+         \PY{n}{NUM\PYZus{}FACES} \PY{o}{=} \PY{l+m+mi}{20}
+         
+         \PY{c+c1}{\PYZsh{} ...and roll it 4 times}
+         \PY{n}{rolls} \PY{o}{=} \PY{l+m+mi}{4}
+         
+         \PY{c+c1}{\PYZsh{} What\PYZsq{}s the probability that all 4 rolls are different? It\PYZsq{}s:}
+         \PY{c+c1}{\PYZsh{} 20/20 * 19/20 * 18/20 * 17/20}
+         \PY{n}{prob\PYZus{}diff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{prod}\PY{p}{(}\PY{p}{(}\PY{n}{NUM\PYZus{}FACES} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{rolls}\PY{p}{)}\PY{p}{)}
+                             \PY{o}{/} \PY{n}{NUM\PYZus{}FACES}\PY{p}{)}
+         \PY{n}{prob\PYZus{}diff}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 0.72675000000000001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s compute that probability for 1 roll, 2 rolls, ..., 20 rolls.}
+         \PY{c+c1}{\PYZsh{} The array ys will contain:}
+         \PY{c+c1}{\PYZsh{} }
+         \PY{c+c1}{\PYZsh{} 20/20}
+         \PY{c+c1}{\PYZsh{} 20/20 * 19/20}
+         \PY{c+c1}{\PYZsh{} 20/20 * 18/20}
+         \PY{c+c1}{\PYZsh{} ...}
+         \PY{c+c1}{\PYZsh{} 20/20 * 19/20 * ... * 1/20}
+         
+         \PY{n}{xs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{ys} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumprod}\PY{p}{(}\PY{p}{(}\PY{n}{NUM\PYZus{}FACES} \PY{o}{\PYZhy{}} \PY{n}{xs}\PY{p}{)} \PY{o}{/} \PY{n}{NUM\PYZus{}FACES}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Python slicing works on arrays too}
+         \PY{n}{ys}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} array([ 1.     ,  0.95   ,  0.855  ,  0.72675,  0.5814 ])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} plt is a data plotting library that we will discuss in a later lecture.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,} \PY{n}{ys}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Num Rolls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(all different)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} Text(0,0.5,'P(all different)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Mysterious...}
+         \PY{n}{mystery} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{xs} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{NUM\PYZus{}FACES}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mystery}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} array([  1.00000000e+00,   9.75309912e-01,   9.04837418e-01,
+                  7.98516219e-01,   6.70320046e-01,   5.35261429e-01,
+                  4.06569660e-01,   2.93757700e-01,   2.01896518e-01,
+                  1.31993843e-01,   8.20849986e-02,   4.85578213e-02,
+                  2.73237224e-02,   1.46253347e-02,   7.44658307e-03,
+                  3.60656314e-03,   1.66155727e-03,   7.28152539e-04,
+                  3.03539138e-04,   1.20362805e-04])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} If you\PYZsq{}re curious, this is the exponential approximation for our probability:}
+         \PY{c+c1}{\PYZsh{} https://textbook.prob140.org/notebooks\PYZhy{}md/15\PYZus{}04\PYZus{}Exponential\PYZus{}Distribution.html}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,} \PY{n}{ys}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All Different}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,} \PY{n}{mystery}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mystery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Num Rolls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(all different)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <matplotlib.legend.Legend at 0x7fcf345b2da0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 2}\label{question-2}
+
+To test your understanding of Numpy we will work through some basic
+image exercises. In the process we will explore visual perception and
+color.
+
+Images are 2-dimensional grids of pixels. Each pixel contains 3 values
+between 0 and 1 that specify how much red, green, and blue go into each
+pixel.
+
+We can create images in NumPy:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{simple\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+             \PY{p}{[}\PY{p}{[}  \PY{l+m+mi}{0}\PY{p}{,}   \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} Grayscale pixels}
+             \PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,}   \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}  \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,}   \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}  \PY{l+m+mi}{0}\PY{p}{,}   \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} Pure RGB pixels}
+             \PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,}   \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{,} \PY{p}{[}  \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} Blend of 2 colors}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{simple\PYZus{}image}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} array([[[ 0. ,  0. ,  0. ],
+                 [ 0.5,  0.5,  0.5],
+                 [ 1. ,  1. ,  1. ]],
+         
+                [[ 1. ,  0. ,  0. ],
+                 [ 0. ,  1. ,  0. ],
+                 [ 0. ,  0. ,  1. ]],
+         
+                [[ 0.5,  0.5,  0. ],
+                 [ 0.5,  0. ,  0.5],
+                 [ 0. ,  0.5,  0.5]]])
+\end{Verbatim}
+            
+    We can then use the
+\href{http://scikit-image.org/}{\texttt{scikit-image}} library to
+display an image:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Curious how this method works? Try using skimage.io.imshow? to find out.}
+         \PY{c+c1}{\PYZsh{} Or, you can always look at the docs for the method.}
+         \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{simple\PYZus{}image}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Disable matplotlib\PYZsq{}s grid lines}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can read in image files using the \texttt{skimage.io.imread} method.
+
+\emph{Note that in many image formats (e.g., JPEG) image values are
+numbers between 0 and 255 corresponding to a byte. Therefore we divide
+each pixel value by 255 to obtain numbers between 0 and 1.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Some image files (including .jpg files) have pixel values in between}
+         \PY{c+c1}{\PYZsh{} 0 and 255 when read. We divide by 255 to scale the values between 0 and 1:}
+         \PY{n}{pic} \PY{o}{=} \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{255}
+         
+         
+         \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pic}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Disable matplotlib\PYZsq{}s grid lines}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 2a}\label{question-2a}
+
+Complete the following block of code to plot the Red, Green, and Blue
+color channels separately. The resulting images should appear in black
+and white.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hint:} \texttt{pic{[}:,\ :,\ 0{]}} will slice the image to
+  extract the red color channel. Plotting the resulting matrix will
+  generate a black and white picture.*
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{channel\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Loop through index of each channel}
+         \PY{k}{for} \PY{n}{channel} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Make a subplot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{channel}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} FINISH THE CODE}
+             \PY{c+c1}{\PYZsh{} Hint: you should write one line of code that calls}
+             \PY{c+c1}{\PYZsh{} `skimage.io.imshow`}
+             \PY{n}{pic} \PY{o}{=} \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pic}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{channel}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{channel\PYZus{}names}\PY{p}{[}\PY{n}{channel}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Separate channels of an image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 2b}\label{question-2b}
+
+Surprisingly the human eye doesn't see all colors equally. To
+demonstrate this we will study how blurring color channels affects image
+appearance. First, we will try to blur each color channel individually.
+Complete the following block of code using the
+\texttt{skimage.filters.gaussian} blurring function (read the docs) to
+render a blurry black and white image for each of the color channels.
+You should set the standard deviation of the Gaussian blurring kernel
+\texttt{sigma} to 10.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Loop through index of each channel}
+         \PY{k}{for} \PY{n}{channel} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Make a subplot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{channel}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} FINISH THE CODE }
+             \PY{n}{pic} \PY{o}{=} \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pic\PYZus{}filter}\PY{o}{=}\PY{n}{skimage}\PY{o}{.}\PY{n}{filters}\PY{o}{.}\PY{n}{gaussian}\PY{p}{(}\PY{n}{pic}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{channel}\PY{p}{]}\PY{p}{,}\PY{n}{sigma}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pic\PYZus{}filter}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{channel\PYZus{}names}\PY{p}{[}\PY{n}{channel}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blurred channels of an image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 2c}\label{question-2c}
+
+Using the following block of code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pic_copy }\OperatorTok{=}\NormalTok{ pic.copy()}
+\NormalTok{pic_copy[:, :, channel] }\OperatorTok{=}\NormalTok{ ...}
+\NormalTok{skimage.io.imshow(pic_copy)}
+\end{Highlighting}
+\end{Shaded}
+
+we can replace a color channel with a different black and white image.
+Complete the following block of code to render three different versions
+of the full color image with just one of the channels blurred.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Loop through index of each channel}
+         \PY{k}{for} \PY{n}{channel} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Make a subplot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{channel}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} FINISH THE CODE}
+             \PY{n}{pic\PYZus{}copy} \PY{o}{=} \PY{n}{pic}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pic\PYZus{}copy}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{channel}\PY{p}{]} \PY{o}{=} \PY{n}{skimage}\PY{o}{.}\PY{n}{filters}\PY{o}{.}\PY{n}{gaussian}\PY{p}{(}\PY{n}{pic}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{n}{channel}\PY{p}{]}\PY{p}{,}\PY{n}{sigma}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{skimage}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{pic\PYZus{}copy}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{channel\PYZus{}names}\PY{p}{[}\PY{n}{channel}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blurred channels of an image}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k}{assert} \PY{k+kc}{True} \PY{c+c1}{\PYZsh{} We\PYZsq{}re giving you this free point for 2a, 2b, 2c, but please do the question}
+\end{Verbatim}
+
+
+    \paragraph{Question 2d}\label{question-2d}
+
+Each image should appear slightly different. Which one is the blurriest
+and which is the sharpest? Write a short description of what you see in
+the cell below.
+
+ *This icon means you will need to write in text response in the cell
+below using English.
+
+\textbf{Hint:} I observe ... . On possible explanation for this is ... .
+
+    I observe that the second image with green channel blurred is blurriest
+and the first image with red channel blurred is sharpest. One possible
+explanation for this is eyes are most sensitive to details of green and
+least sensitive to details of red.
+
+    \subsection{3: Debugging and Testing}\label{debugging-and-testing}
+
+In this course, you will write a significant amount of code and
+inevitably encounter some bugs in the process. You should feel
+comfortable reading stack traces, debugging erroneous code, and testing
+the code you write.
+
+Regarding debugging methods, we will be using \texttt{pdb} (Python
+Debugger), linked here: https://docs.python.org/3/library/pdb.html.
+\texttt{pdb} provides an interactive debugger for python programs and
+works within a notebook. It has a lot of useful features such as setting
+conditional breakpoints and single stepping at the source line level.
+
+We will only be enforcing \texttt{pdb} on this first assignment. You can
+still use print statements or other methods of your choice on other
+assignments, although when the code becomes increasingly complex you may
+find it harder to debug without \texttt{pdb}.
+
+Please walk through the \texttt{debugging.ipynb} before proceeding.
+
+    \subsubsection{Question 3}\label{question-3}
+
+The following blocks of code contains some errors. Find the bug and fix
+it in the same block so that the function does what it is expected to
+do. Feel free to create new cells to debug and test your code. Once you
+are confident that your code works, change the \_debug to \_fixed to run
+our tests.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hint:} Try to use array operations to simplify your code.
+\end{itemize}
+
+    \paragraph{Question 3a}\label{question-3a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{def} \PY{n+nf}{multiply\PYZus{}list\PYZus{}debug}\PY{p}{(}\PY{n}{some\PYZus{}list}\PY{p}{,} \PY{n}{multiplier}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Given a list and a multiplier, return a list containing each element in the list multiplied by }
+         \PY{l+s+sd}{    the multiplier. }
+         \PY{l+s+sd}{    You may assume that the lists are well formed and not nested more than once, }
+         \PY{l+s+sd}{    ie: }
+         \PY{l+s+sd}{        [[1,2,3],[4,5,6]] is valid since it is nested once and each nested list }
+         \PY{l+s+sd}{            is of the same type and length,}
+         \PY{l+s+sd}{        [[1,2,3,[4,5,6]] is not valid  since it is nested more than once and }
+         \PY{l+s+sd}{            each nested list is not of same type}
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        some\PYZus{}list: a list of integers that may or may not be nested}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        A list (or hint: array) containing each element in the list multipled by the multiplier}
+         \PY{l+s+sd}{    e.g.}
+         \PY{l+s+sd}{    [1,2,3], 5 should return [5,10,15]}
+         \PY{l+s+sd}{    [[1,2,3], [4,5,6], [7,8,9]], 0.5 should return [[0.5,1,1.5],[2,2.5,3],[3.5,4,4.5]]}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{some\PYZus{}list\PYZus{}multiplied} \PY{o}{=} \PY{n}{some\PYZus{}list} \PY{o}{*} \PY{n}{multiplier}
+             \PY{k}{return} \PY{n}{some\PYZus{}list\PYZus{}multiplied}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{multiply\PYZus{}list\PYZus{}fixed}\PY{p}{(}\PY{n}{some\PYZus{}list}\PY{p}{,} \PY{n}{multiplier}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{some\PYZus{}list}\PY{p}{)}\PY{o}{*}\PY{n}{multiplier}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{multiply\PYZus{}list\PYZus{}fixed}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{multiply\PYZus{}list\PYZus{}fixed}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mf}{2.5}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mf}{4.5}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Question 3b}\label{question-3b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}all\PYZus{}under\PYZus{}10\PYZus{}debug}\PY{p}{(}\PY{n}{some\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Given a list, return a list containing all elements that are strictly less than 10.}
+         \PY{l+s+sd}{    You may assume that the lists are well formed and not nested more than once, }
+         \PY{l+s+sd}{    ie: }
+         \PY{l+s+sd}{        [[1,2,3],[4,5,6]] is valid since it is nested once and each nested list }
+         \PY{l+s+sd}{            is of the same type, }
+         \PY{l+s+sd}{        [[1,2,3,[4,5,6]] is not valid  since it is nested more than once and }
+         \PY{l+s+sd}{            each nested list is not of same type}
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        some\PYZus{}list: a list of integers that may or may not be nested}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        A list (or array) of all elements that are less than 10}
+         \PY{l+s+sd}{    e.g.}
+         \PY{l+s+sd}{    [1,2,...,20] should return [1,2,...,9]}
+         \PY{l+s+sd}{    [[1,2,3], [4,5,6], [20,21,22]] should return [1,2,3,4,5,6]}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{all\PYZus{}under\PYZus{}10} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{some\PYZus{}list}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{item} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                     \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{all\PYZus{}under\PYZus{}10}\PY{p}{,}\PY{n}{item}\PY{p}{)}
+             \PY{k}{return} \PY{n}{all\PYZus{}under\PYZus{}10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}all\PYZus{}under\PYZus{}10\PYZus{}fixed}\PY{p}{(}\PY{n}{some\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{n}{all\PYZus{}under\PYZus{}10} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{some\PYZus{}list}\PY{p}{:}
+                 \PY{n}{item}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{item} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{all\PYZus{}under\PYZus{}10} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{all\PYZus{}under\PYZus{}10}\PY{p}{,}\PY{n}{item}\PY{p}{[}\PY{n}{item} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+             \PY{n}{all\PYZus{}under\PYZus{}10} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{all\PYZus{}under\PYZus{}10}\PY{p}{]}
+             \PY{k}{return} \PY{n}{all\PYZus{}under\PYZus{}10}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{find\PYZus{}all\PYZus{}under\PYZus{}10\PYZus{}fixed}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{find\PYZus{}all\PYZus{}under\PYZus{}10\PYZus{}fixed}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Question 3c}\label{question-3c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k}{def} \PY{n+nf}{cat\PYZus{}debug}\PY{p}{(}\PY{n}{cat\PYZus{}data}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Given a 2d array containing cat names and weights, find the cats that weigh less than 10 lbs }
+         \PY{l+s+sd}{    and return a 2d array of those cats after adding 3 lbs to their weights.}
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        cat\PYZus{}data: a 2d array containing cat names and their corresponding weights}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        A 2d list (or array) of cats less than 10 lbs and their weights + 3 lbs}
+         \PY{l+s+sd}{    e.g.}
+         \PY{l+s+sd}{    [[\PYZsq{}Jordan\PYZsq{},8],[\PYZsq{}Michael\PYZsq{},11],[\PYZsq{}Peter\PYZsq{}, 7]] should return [[\PYZsq{}Jordan\PYZsq{},11],[\PYZsq{}Peter\PYZsq{}, 10]]}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Hint: What happens when a list or array contains data of multiple types?}
+         \PY{l+s+sd}{    Hint: checkout arr.astype for type casting}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{list\PYZus{}of\PYZus{}cats} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{cat} \PY{o+ow}{in} \PY{n}{cat\PYZus{}data}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{cat}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                     \PY{n}{list\PYZus{}of\PYZus{}cats}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+             \PY{k}{for} \PY{n}{cat} \PY{o+ow}{in} \PY{n}{list\PYZus{}of\PYZus{}cats}\PY{p}{:}
+                 \PY{n}{cat} \PY{o}{=} \PY{n}{cat} \PY{o}{+} \PY{l+m+mi}{3}
+             \PY{k}{return} \PY{n}{list\PYZus{}of\PYZus{}cats}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{def} \PY{n+nf}{cat\PYZus{}fixed}\PY{p}{(}\PY{n}{cat\PYZus{}data}\PY{p}{)}\PY{p}{:}
+             \PY{n}{list\PYZus{}of\PYZus{}cats} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{cat} \PY{o+ow}{in} \PY{n}{cat\PYZus{}data}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cat}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                     \PY{n}{list\PYZus{}of\PYZus{}cats}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cat}\PY{p}{)}
+             \PY{k}{for} \PY{n}{cat} \PY{o+ow}{in} \PY{n}{list\PYZus{}of\PYZus{}cats}\PY{p}{:}
+                 \PY{n}{cat}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cat}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{3}
+             \PY{k}{return} \PY{n}{list\PYZus{}of\PYZus{}cats}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{cat\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jordan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Michael}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Peter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{cat\PYZus{}fixed}\PY{p}{(}\PY{n}{cat\PYZus{}data}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jordan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Peter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{4: Multivariable Calculus, Linear Algebra, and
+Probability}\label{multivariable-calculus-linear-algebra-and-probability}
+
+The following questions ask you to recall your knowledge of
+multivariable calculus, linear algebra, and probability. We will use
+some of the most fundamental concepts from each discipline in this
+class, so the following problems should at least seem familiar to you.
+
+For the following problems, you should use LaTeX to format your answer.
+If you aren't familiar with LaTeX, not to worry. It's not hard to use in
+a Jupyter notebook. Just place your math in between dollar signs:
+
+\textbackslash{}\$ f(x) = 2x \textbackslash{}\$ becomes \$ f(x) = 2x \$.
+
+If you have a longer equation, use double dollar signs:
+
+\textbackslash{}\(\\\) \sum\_\{i=0\}\^{}n i\^{}2 \textbackslash{}\(\\\)
+becomes:
+
+\[ \sum_{i=0}^n i^2 \].
+
+Here are some handy notation:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.05\columnwidth}\raggedright\strut
+Output\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedright\strut
+Latex\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[x^{a + b}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{x\^{}\{a\ +\ b\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[x_{a + b}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{x\_\{a\ +\ b\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\frac{a}{b}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}frac\{a\}\{b\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\sqrt{a + b}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}sqrt\{a\ +\ b\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\{ \alpha, \beta, \gamma, \pi, \mu, \sigma^2  \}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}\{\ \textbackslash{}alpha,\ \textbackslash{}beta,\ \textbackslash{}gamma,\ \textbackslash{}pi,\ \textbackslash{}mu,\ \textbackslash{}sigma\^{}2\ \ \textbackslash{}\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\sum_{x=1}^{100}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}sum\_\{x=1\}\^{}\{100\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\frac{\partial}{\partial x} \]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}frac\{\textbackslash{}partial\}\{\textbackslash{}partial\ x\}}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\[\begin{bmatrix} 2x + 4y \\ 4x + 6y^2 \\ \end{bmatrix}\]\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
+\texttt{\textbackslash{}begin\{bmatrix\}\ 2x\ +\ 4y\ \textbackslash{}\textbackslash{}\ 4x\ +\ 6y\^{}2\ \textbackslash{}\textbackslash{}\ \textbackslash{}end\{bmatrix\}}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\href{https://www.sharelatex.com/learn/Mathematical_expressions}{For
+more about basic LaTeX formatting, you can read this article.}
+
+If you have trouble with these topics, we suggest reviewing:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.khanacademy.org/math/multivariable-calculus}{Khan
+  Academy's Multivariable Calculus}
+\item
+  \href{https://www.khanacademy.org/math/linear-algebra}{Khan Academy's
+  Linear Algebra}
+\item
+  \href{https://www.khanacademy.org/math/statistics-probability}{Khan
+  Academy's Statistics and Probability}
+\end{itemize}
+
+    \subsubsection{Question 4}\label{question-4}
+
+\paragraph{Question 4a}\label{question-4a}
+
+Recall that summation (or sigma notation) is a way of expressing a long
+sum in a concise way. Let \(a_1, a_2, ..., a_n \in \mathbb{R}\) and
+\(x_1, x_2, ..., x_n \in \mathbb{R}\) be collections of real numbers.
+When you see \(x_i\), you can think of the \(i\) as an index for the
+\(i^{th}\) \(x\). For example \(x_2\) is the second \(x\) value in the
+list \(x_1, x_2, ..., x_n\). We define sigma notation as follows:
+
+\[ \sum_{i=1}^n a_i x_i = a_1 x_1 + a_2 x_2 + ... + a_n x_n \]
+
+We commonly use sigma notation to compactly write the definition of the
+arithmetic mean (commonly known as the \texttt{average}):
+
+\[ \bar{x} = \dfrac{1}{n} \left(x_1 + x_2 + ... + x_n \right) = \dfrac{1}{n} \sum_{i=1}^{n} x_i \]
+
+\textbf{For each of the statements below, either prove that it is true
+by using definitions or show that it is false by providing a
+counterexample.}
+
+\textbf{Note:} *This icon means you will need to write in text response
+in the cell below using English + \(\LaTeX\).
+
+    \paragraph{Statement I}\label{statement-i}
+
+\(\dfrac{\sum_{i=1}^{n} a_i x_i}{\sum_{i=1}^{n} a_i} = \sum_{i=1}^n x_i\)
+
+    False. Counterexample: \(\frac{1*1+1*1}{1+1}\neq{1+1}\)
+
+    \paragraph{Statement II}\label{statement-ii}
+
+\(\sum_{i=1}^{n} x_1 = nx_1\)
+
+    True. Prove: \(\sum_{i=1}^nx_1=x_1+x_1+...+x_1=nx_1\). Sum of n
+\(x_1\)'s and \(x_1\) is a constant is this equation.
+
+    \paragraph{Statement III}\label{statement-iii}
+
+\$\sum\_\{i=1\}\^{}\{n\} a\_3 x\_i = n a\_3 \bar\{x\} \$
+
+    True.
+Prove:\(\sum_{i=1}^na_3x_i=a_3\sum_{i=1}^nx_i=a_3*\frac{x_1+x_2+...+x_n}{n}*n=na_3\bar x\)
+
+    \paragraph{Statement IV}\label{statement-iv}
+
+\$\sum\_\{i=1\}\^{}\{n\} a\_i x\_i = n \bar\{a\} \bar\{x\} \$
+
+    False. Counterexample: \(1*1+3*3 \neq 2*2*2\)
+
+    \textbf{Note:}
+
+We can also generalize the summation concepts above to multiple indices:
+consider an array of values \(x_{ij}\)
+
+\[ \begin{bmatrix} x_{1,1} & x_{1, 2} & ... & x_{1, n} \\ 
+x_{2,1} & x_{2, 2} & ... & x_{2, n} \\ 
+\vdots  & \vdots   & \ddots & \vdots   \\ 
+x_{n,1} & x_{n, 2} & ... & x_{n, n} \\ 
+\end{bmatrix} \]
+
+By convention, the first index refers to the row and the second index
+references the column. e.g. \(x_{2, 4}\) is the value in the second row
+and the fourth column. For multi-indexed arrays like this, we can write
+down the sum of all the values by evoking sigma notation multiple times:
+
+\begin{align*} 
+    \sum_{i=1}^{n} \sum_{j=1}^{n} x_{i,j}
+    &= \sum_{i=1}^{n} \left(\sum_{j=1}^{n} x_{i,j} \right) \\
+    &= \sum_{i=1}^{n} \left(x_{i,1} + x_{i,2} + ... + x_{i,n}\right) \\
+    &= \sum_{i=1}^{n} x_{i,1} + \sum_{i=1}^{n} x_{i,2} + ... + \sum_{i=1}^{n} x_{i,n} \\
+    &= \left(x_{1,1} + x_{1,2} + ... + x_{1,n}\right) + \left(x_{2,1} + x_{2,2} + ... + x_{2,n}\right) + ... +  \left(x_{n,1} + x_{n,2} + ... + x_{n,n}\right) \\
+    &= x_{1,1} + x_{1,2} + ... + x_{1,n} + x_{2,1} + x_{2,2} + ... + x_{2,n} + ... + ... + x_{n,1} + x_{n,2} + ... + x_{n,n}
+\end{align*}
+
+    \paragraph{Question 4b}\label{question-4b}
+
+Manipulate the following expression to show that it can be written as a
+sum of powers of \(x\) (e.g. \(3x + 5x^2 + 8x^3\)):
+
+\[
+    \ln \left( 3 e^{2  x} e^{\frac{1}{x^2}} \right)
+\]
+
+    \(ln(3e^{2x}e^{\frac{1}{x^2}})=ln(3)+ln(e^{2x})+ln(e^{\frac{1} {x^2}})=ln(3)+2ln(e)x+ln(e)x^{-2}=ln(3)+2x+x^{-2}\)
+
+    \paragraph{Question 4c}\label{question-4c}
+
+Suppose we have the following scalar-valued function on \(x\) and \(y\):
+
+\[ f(x, y) = x^2 + 4xy + 2y^3 + e^{-3y} + \ln(2y) \]
+
+Compute the partial derivative with respect to \(x\).
+
+    \(\frac{\partial}{\partial x}f(x,y)=2x+4y+2y^3+e^{-3y}+ln(2y)\)
+
+    Now compute the partial derivative of \(f(x,y)\) with respect to \(y\):
+
+    \(\frac{\partial}{\partial y}f(x,y)=x^2+4x+6y^2-3e^{-3y}+\frac{1}{y}\)
+
+    \paragraph{Question 4d}\label{question-4d}
+
+Find the value(s) of \(x\) which minimize the expressions below. Justify
+why it is the minimum.
+
+    \paragraph{Part A}\label{part-a}
+
+\(\sum_{i=1}^{10} (i - x)^2\)
+
+    x = 5.5 Justify:
+\[\frac{d}{dx}\sum_{i=1}^{10}(i-x)^2=\sum_{i=1}^{10}(2x-2i)=\sum_{i=1}^{10}(2x)-\sum_{i=1}^{10}(2i)=20x-110=0\],
+when \(x=5.5\)
+\[\frac{d^2}{dx^2}\sum_{i=1}^{10}(i-x)^2=\sum_{i=1}^{10}2=20>0\], so
+\(x=5.5\)will minimize the expression.
+
+    \paragraph{Part B}\label{part-b}
+
+\(\sin\left(\frac{x}{2}\right)\cos\left(\frac{x}{2}\right)\)
+
+    \(x=\frac{3}{2}\pi+2k\pi, k\in \mathbb{Z}\)
+Justify:\[sin(\frac{x}{2})cos(\frac{x}{2})=\frac{1}{2}sin(x)\] of which
+graphic show the values of x which minimize the origin expression.
+
+    \paragraph{Part C}\label{part-c}
+
+\$ \vert 5 - x \vert + \vert 3 - x \vert + \vert 1 - x \vert \$
+
+    \begin{equation}
+origin\ expression=\left\{
+\begin{aligned}
+3x-9,\quad & x>5 \\
+x+1,\quad & 3<x\leq5 \\
+-x+7,\quad & 1<x\leq3 \\
+-3x+9,\quad & x\leq1
+\end{aligned}
+\right.
+\end{equation}
+
+The graphic show the value of x which minimize the expression is \(x=3\)
+
+    \paragraph{Question 4e}\label{question-4e}
+
+Let \$ \sigma(x) = \dfrac{1}{1+e^{-x}} \$
+
+    \paragraph{Part A}\label{part-a}
+
+Show that \(\sigma(-x) = 1 - \sigma(x)\) where
+\(\sigma(x) = \frac{1}{1+e^{-x}}\).
+
+    \(\sigma(-x)=\frac{1}{1+e^x}=\frac{1+e^x-e^x}{1+e^x}=1-\frac{e^x}{1+e^x}=1-\frac{1}{1+e^{-x}}=1-\sigma(x)\)
+
+    \paragraph{Part B}\label{part-b}
+
+Show that the derivative can be written as:
+
+\[\frac{d}{dx}\sigma(x) = \sigma(x)(1 - \sigma(x)) \]
+
+    \(\frac{d}{dx}\sigma(x)=\frac{e^{-x}}{(1+e^{-x})^2}=\frac{1}{1+e^{-x}}\frac{e^{-x}}{1+e^{-x}}=\sigma(x)*\sigma(-x)= \sigma(x)(1 - \sigma(x))\)
+
+    \paragraph{Question 4f}\label{question-4f}
+
+Write code to plot the function \(f(x) = x^2\) and the derivative of
+\(f\) evaluated at \(x=8\) and \(x=0\).
+
+Set the range of the x-axis to (-15, 15) and the range of the y axis to
+(-100, 300) and the figure size to (8,8).
+
+Your resulting plot should look like this:
+
+You should use the \texttt{plt.plot} function to plot lines. You may
+find the following functions useful:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html}{\texttt{plt.plot}}
+\item
+  \href{https://stackoverflow.com/questions/332289/how-do-you-change-the-size-of-figures-drawn-with-matplotlib}{\texttt{plt.figure(figsize=..)}}
+\item
+  \href{https://matplotlib.org/api/_as_gen/matplotlib.pyplot.ylim.html}{\texttt{plt.ylim(..)}}
+\item
+  \href{https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hlines.html}{\texttt{plt.axhline(..)}}
+\end{itemize}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+             
+         \PY{k}{def} \PY{n+nf}{df}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}
+         
+         \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{x2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+             \PY{n}{y2}\PY{o}{=}\PY{n}{f}\PY{p}{(}\PY{n}{x2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{y2}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             
+             \PY{n}{x1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+             \PY{n}{y1}\PY{o}{=}\PY{n}{df}\PY{p}{(}\PY{n}{x1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yellow}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{y2}\PY{p}{)}\PY{p}{,}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}
+             
+         \PY{n}{plot}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_120_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Question 4g}\label{question-4g}
+
+How can we interpret what the derivative of a function is using this
+plot?
+
+    We can see that when a function is decresing, the derivative of the
+function is below 0. And when a function is increasing, the derivative
+of function is above 0. Therefore, we can interpret the derivative is a
+index which suggest the trend and rate of change of function.
+
+    \paragraph{Question 4h}\label{question-4h}
+
+Consider the following scenario:
+
+Only \(1\%\) of 40-year-old women who participate in a routine
+mammography test have breast cancer. \(80\%\) of women who have breast
+cancer will test positive, but \(9.6\%\) of women who don't have breast
+cancer will also get positive tests.
+
+Suppose we know that a woman of this age tested positive in a routine
+screening. What is the probability that she actually has breast cancer?
+
+\textbf{Hint:} Try to use Bayes' rule.
+
+    \(P(C|+)=\frac{P(+|C)*P(C)}{P(+|C)P(C)+P(+|C^c)P(C^c)}\approx 7.764\%\)
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{5: Basic Classification}\label{basic-classification}
+
+Suppose we have a dataset containing two different classes, class A and
+class B, visualized below as purple dots and yellow dots. Let's
+implement basic K nearest neighbors classifier that classifies a point
+of interest by finding the K nearest neighbors. Recall the K-NN
+algorithm:
+
+Given an example point to classify and the population we are querying
+from,
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Find the distance between the example point and each point in the data
+  set
+\item
+  Augment the data table with a column containing all the distances to
+  the example point
+\item
+  Sort the augmented table in increasing order of the distances to the
+  example point
+\item
+  Take the top k rows of the sorted table to get the K nearest neighbors
+\end{enumerate}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} Code to visualize the dataset}
+         \PY{n}{class\PYZus{}A} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{class\PYZus{}B} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{class\PYZus{}A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}A}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{class\PYZus{}B} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}B}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{population} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{class\PYZus{}A}\PY{p}{,} \PY{n}{class\PYZus{}B}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two Class Dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} Text(0.5,1,'Two Class Dataset')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_127_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 5}\label{question-5}
+
+Fill in the functions \texttt{distance} and \texttt{getNeighbors} below,
+and test your code against the sklearn KNN classifier (write tests to
+see that your \texttt{getNeighbors} finds the same neighbors as the
+sklearn version). You must write at least 2 test cases with one example
+for each class.
+
+Sklearn KNN:
+http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{import} \PY{n+nn}{operator}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{typing} \PY{k}{import} \PY{n}{Union}
+         
+         \PY{k}{def} \PY{n+nf}{distance}\PY{p}{(}\PY{n}{p1}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,} \PY{n}{p2}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{float}\PY{p}{,} \PY{n+nb}{int}\PY{p}{]}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Return the euclidean distance between two points p1 and p2.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Shape:}
+         \PY{l+s+sd}{        \PYZhy{} p1 and p2 are expected to have shape (1,2)}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} p1 = np.array([1.2, 2])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} p2 = np.array([2, 2])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} distance(p1, p2)}
+         \PY{l+s+sd}{    0.8}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} distance(p1, p1)}
+         \PY{l+s+sd}{    0 }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{p1}\PY{o}{\PYZhy{}}\PY{n}{p2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbors}\PY{p}{(}\PY{n}{example}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,} \PY{n}{population}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{,} \PY{n}{k}\PY{p}{:} \PY{n+nb}{int}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    For a given example, return the k nearest neighbors in the given population as a np.array.}
+         \PY{l+s+sd}{    Each element of the population array should have the x\PYZhy{}coordinate, the y\PYZhy{}coordinate, and the class.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Shape:}
+         \PY{l+s+sd}{        \PYZhy{} example is a point, with shape (1,1,2)}
+         \PY{l+s+sd}{        \PYZhy{} population is a 2d array with shape (N, 3). N is the total number of points.}
+         \PY{l+s+sd}{          The first two column represent the x and y coordinates of the points. }
+         \PY{l+s+sd}{          The third column represent the class of each point. }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} example = np.array([[1, 1]])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} population = np.array([}
+         \PY{l+s+sd}{            [0, 0, 0], \PYZsh{} point at coordinate (0, 0) belongs to class 0 }
+         \PY{l+s+sd}{            [100, 100, 1] \PYZsh{} point at coordinate (100, 100) belongs to class 1}
+         \PY{l+s+sd}{        ])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} get\PYZus{}neighbors(example, population, k=1)}
+         \PY{l+s+sd}{    np.array([}
+         \PY{l+s+sd}{        [0, 0, 0] \PYZsh{} point at coordinate (0, 0) is closet to example at (1, 1)}
+         \PY{l+s+sd}{    ])}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{dis} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{distance}\PY{p}{(}\PY{n}{example}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{pop}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{pop} \PY{o+ow}{in} \PY{n}{population}\PY{p}{]}\PY{p}{)}
+             \PY{n}{add} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{population}\PY{p}{,}\PY{n}{dis}\PY{p}{]}
+             \PY{k}{return} \PY{n}{add}\PY{p}{[}\PY{p}{(}\PY{n}{add}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+             
+         
+         \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{n}{example}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compare your results against the sklearn KNN classifier.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    This function should create a sklearn KNeighborsClassifier and verify}
+         \PY{l+s+sd}{    that get\PYZus{}neighbors method returns the same result as the KNeighborsClassifier.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} example = np.array([[1, 1]])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} population = np.array([}
+         \PY{l+s+sd}{            [0, 0, 0], \PYZsh{} point at coordinate (0, 0) belongs to class 0 }
+         \PY{l+s+sd}{            [100, 100, 1] \PYZsh{} point at coordinate (100, 100) belongs to class 1}
+         \PY{l+s+sd}{        ])}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} \PYZsh{} Provided get\PYZus{}neighbors implemented correctly}
+         \PY{l+s+sd}{    \PYZgt{}\PYZgt{}\PYZgt{} test(example, population, k=1)}
+         \PY{l+s+sd}{    True}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{neigh} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k}\PY{p}{)}
+             \PY{n}{neigh}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{population}\PY{p}{[}\PY{n}{neigh}\PY{o}{.}\PY{n}{kneighbors}\PY{p}{(}\PY{n}{example}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{return\PYZus{}distance}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}equal}\PY{p}{(}\PY{n}{get\PYZus{}neighbors}\PY{p}{(}\PY{n}{example}\PY{p}{,} \PY{n}{population}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{,}\PY{n}{result}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} YOUR TESTS HERE}
+         \PY{n}{test}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{test}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} True
+\end{Verbatim}
+            
+    If your code is written properly, the two plots below should plot the
+point of interest, example\_A and example\_B, (red) and the K nearest
+neighbors (green). It should look SIMILAR to the two plots below.
+
+ 
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{example\PYZus{}A} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+         \PY{n}{example\PYZus{}B} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{neighbors\PYZus{}A} \PY{o}{=} \PY{n}{get\PYZus{}neighbors}\PY{p}{(}\PY{n}{example\PYZus{}A}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{neighbors\PYZus{}A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{neighbors\PYZus{}A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class A Example}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{neighbors\PYZus{}B} \PY{o}{=} \PY{n}{get\PYZus{}neighbors}\PY{p}{(}\PY{n}{example\PYZus{}B}\PY{p}{,} \PY{n}{population}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{population}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{neighbors\PYZus{}B}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{neighbors\PYZus{}B}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class B Example}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_132_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_132_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Submission}\label{submission}
+
+You're done!
+
+Before submitting this assignment, ensure to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Restart the Kernel (in the menubar, select
+  Kernel-\textgreater{}Restart \& Run All)
+\item
+  Validate the notebook by clicking the "Validate" button
+\end{enumerate}
+
+Finally, make sure to \textbf{submit} the assignment via the Assignments
+tab in Datahub
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

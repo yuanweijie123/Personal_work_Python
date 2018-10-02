@@ -1,0 +1,2488 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Before you turn this problem in, make sure everything runs as expected.
+First, \textbf{restart the kernel} (in the menubar, select
+Kernel\(\rightarrow\)Restart) and then \textbf{run all cells} (in the
+menubar, select Cell\(\rightarrow\)Run All).
+
+Make sure you fill in any place that says \texttt{YOUR\ CODE\ HERE} or
+"YOUR ANSWER HERE", as well as your name and collaborators below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{NAME} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weijie Yuan}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{COLLABORATORS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N/A}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \section{Homework 1: Food Safety}\label{homework-1-food-safety}
+
+\subsection{Cleaning and Exploring Data with
+Pandas}\label{cleaning-and-exploring-data-with-pandas}
+
+\subsection{Due Date: Thursday 9/13, 11:59
+PM}\label{due-date-thursday-913-1159-pm}
+
+\subsection{Course Policies}\label{course-policies}
+
+Here are some important course policies. These are also located at
+http://www.ds100.org/fa18/.
+
+\textbf{Collaboration Policy}
+
+Data science is a collaborative activity. While you may talk with others
+about the homework, we ask that you \textbf{write your solutions
+individually}. If you do discuss the assignments with others please
+\textbf{include their names} at the top of your notebook.
+
+\subsection{This assignment}\label{this-assignment}
+
+In this homework, you will investigate restaurant food safety scores for
+restaurants in San Francisco. Above is a sample score card for a
+restaurant. The scores and violation information have been made
+available by the San Francisco Department of Public Health and we have
+made these data available to you via the DS 100 repository. The main
+goal for this assignment is to understand how restaurants are scored. We
+will walk through the various steps of exploratory data analysis to do
+this. We will provide comments and insights along the way to give you a
+sense of how we arrive at each discovery and what next steps it leads
+to.
+
+As we clean and explore these data, you will gain practice with: *
+Reading simple csv files * Working with data at different levels of
+granularity * Identifying the type of data collected, missing values,
+anomalies, etc. * Exploring characteristics and distributions of
+individual variables
+
+\subsection{Score breakdown}\label{score-breakdown}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Question & Points\tabularnewline
+\midrule
+\endhead
+1a & 1\tabularnewline
+1b & 0\tabularnewline
+1c & 0\tabularnewline
+1d & 3\tabularnewline
+1e & 1\tabularnewline
+2a & 1\tabularnewline
+2b & 2\tabularnewline
+3a & 2\tabularnewline
+3b & 0\tabularnewline
+3c & 2\tabularnewline
+3d & 1\tabularnewline
+3e & 1\tabularnewline
+4a & 2\tabularnewline
+4b & 3\tabularnewline
+5a & 1\tabularnewline
+5b & 1\tabularnewline
+5c & 1\tabularnewline
+6a & 2\tabularnewline
+6b & 3\tabularnewline
+6c & 3\tabularnewline
+7a & 2\tabularnewline
+7b & 2\tabularnewline
+7c & 6\tabularnewline
+7d & 2\tabularnewline
+7e & 3\tabularnewline
+Total & 45\tabularnewline
+\bottomrule
+\end{longtable}
+
+    To start the assignment, run the cell below to set up some imports and
+the automatic tests that we will need for this assignment:
+
+In many of these assignments (and your future adventures as a data
+scientist) you will use \texttt{os}, \texttt{zipfile}, \texttt{pandas},
+\texttt{numpy}, \texttt{matplotlib.pyplot}, and \texttt{seaborn}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Import each of these libraries \texttt{as} their commonly used
+  abbreviations (e.g., \texttt{pd}, \texttt{np}, \texttt{plt}, and
+  \texttt{sns}).\\
+\item
+  Don't forget to include \texttt{\%matplotlib\ inline} which enables
+  \href{http://ipython.readthedocs.io/en/stable/interactive/magics.html\#magic-matplotlib}{inline
+  matploblib plots}.
+\item
+  Add the line \texttt{sns.set()} to make your plots look nicer.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{zipfile}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        
+        \PY{k}{assert} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zipfile}\PY{l+s+s1}{\PYZsq{}}\PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules}
+        \PY{k}{assert} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pandas}\PY{l+s+s1}{\PYZsq{}}\PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules} \PY{o+ow}{and} \PY{n}{pd}
+        \PY{k}{assert} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numpy}\PY{l+s+s1}{\PYZsq{}}\PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules} \PY{o+ow}{and} \PY{n}{np}
+        \PY{k}{assert} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{matplotlib}\PY{l+s+s1}{\PYZsq{}}\PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules} \PY{o+ow}{and} \PY{n}{plt}
+        \PY{k}{assert} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn}\PY{l+s+s1}{\PYZsq{}}\PY{o+ow}{in} \PY{n}{sys}\PY{o}{.}\PY{n}{modules} \PY{o+ow}{and} \PY{n}{sns}
+\end{Verbatim}
+
+
+    \subsection{Downloading the data}\label{downloading-the-data}
+
+For this assignment, we need this data file:
+http://www.ds100.org/fa18/assets/datasets/hw2-SFBusinesses.zip
+
+We could write a few lines of code that are built to download this
+specific data file, but it's a better idea to have a general function
+that we can reuse for all of our assignments. Since this class isn't
+really about the nuances of the Python file system libraries, we've
+provided a function for you in ds100\_utils.py called
+\texttt{fetch\_and\_cache} that can download files from the internet.
+
+This function has the following arguments: - data\_url: the web address
+to download - file: the file in which to save the results - data\_dir:
+(default="data") the location to save the data - force: if true the file
+is always re-downloaded
+
+The way this function works is that it checks to see if
+\texttt{data\_dir/file} already exists. If it does not exist already or
+if \texttt{force=True}, the file at \texttt{data\_url} is downloaded and
+placed at \texttt{data\_dir/file}. The process of storing a data file
+for reuse later is called caching. If \texttt{data\_dir/file} already
+and exists \texttt{force=False}, nothing is downloaded, and instead a
+message is printed letting you know the date of the cached file.
+
+The function returns a \texttt{pathlib.Path} object representing the
+file. A \texttt{pathlib.Path} is an object that stores filepaths, e.g.
+\texttt{\textasciitilde{}/Dropbox/ds100/horses.txt}.
+
+    The code below uses \texttt{ds100\_utils.py} to download the data from
+the following URL:
+http://www.ds100.org/fa18/assets/datasets/hw2-SFBusinesses.zip
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{ds100\PYZus{}utils}
+        \PY{n}{source\PYZus{}data\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://www.ds100.org/fa18/assets/datasets/hw2\PYZhy{}SFBusinesses.zip}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{target\PYZus{}file\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.zip}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{data\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Change the force=False \PYZhy{}\PYZgt{} force=True in case you need to force redownload the data}
+        \PY{n}{dest\PYZus{}path} \PY{o}{=} \PY{n}{ds100\PYZus{}utils}\PY{o}{.}\PY{n}{fetch\PYZus{}and\PYZus{}cache}\PY{p}{(}\PY{n}{data\PYZus{}url}\PY{o}{=}\PY{n}{source\PYZus{}data\PYZus{}url}\PY{p}{,} \PY{n}{data\PYZus{}dir}\PY{o}{=}\PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{n}{file}\PY{o}{=}\PY{n}{target\PYZus{}file\PYZus{}name}\PY{p}{,} \PY{n}{force}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using cached version that was downloaded (UTC): Tue Sep  4 16:56:11 2018
+
+    \end{Verbatim}
+
+    After running the code, if you look at the directory containing
+hw1.ipynb, you should see data.zip.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{1: Loading Food Safety Data}\label{loading-food-safety-data}
+
+Alright, great, now we have \texttt{data.zip}. We don't have any
+specific questions yet, so let's focus on understanding the structure of
+the data. Recall this involves answering questions such as
+
+\begin{itemize}
+\tightlist
+\item
+  Is the data in a standard format or encoding?
+\item
+  Is the data organized in records?
+\item
+  What are the fields in each record?
+\end{itemize}
+
+Let's start by looking at the contents of the zip file. We could in
+theory do this by manually opening up the zip file on our computers or
+using a shell command like \texttt{!unzip}, but on this homework we're
+going to do almost everything in Python for maximum portability and
+automation.
+
+\textbf{Goal}: Fill in the code below so that \texttt{my\_zip} is a
+\texttt{Zipfile.zipfile} object corresponding to the downloaded zip
+file, and so that \texttt{list\_names} contains a list of the names of
+all files inside the downloaded zip file.
+
+Creating a \texttt{zipfile.Zipfile} object is a good start (the
+\href{https://docs.python.org/3/library/zipfile.html}{Python docs} have
+further details). You might also look back at the code from the case
+study from lecture 2,
+\href{http://www.ds100.org/fa18/assets/lectures/lec02/02-case-study.nbconvert.html}{02-case-study.ipynb}.
+It's OK to copy and paste code from the 02-case-study file, though you
+might get more out of this exercise if you type out an answer.
+
+    \subsubsection{Question 1a: Looking Inside and Extracting the Zip
+Files}\label{question-1a-looking-inside-and-extracting-the-zip-files}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Fill in the list\PYZus{}files variable with a list of all the names of the files in the zip file}
+        \PY{n}{my\PYZus{}zip} \PY{o}{=} \PY{n}{zipfile}\PY{o}{.}\PY{n}{ZipFile}\PY{p}{(}\PY{n}{target\PYZus{}file\PYZus{}name}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{list\PYZus{}names} \PY{o}{=} \PY{n}{my\PYZus{}zip}\PY{o}{.}\PY{n}{namelist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    The cell below will test that your code is correct.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{my\PYZus{}zip}\PY{p}{,} \PY{n}{zipfile}\PY{o}{.}\PY{n}{ZipFile}\PY{p}{)}
+        \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{list\PYZus{}names}\PY{p}{,} \PY{n+nb}{list}\PY{p}{)}
+        \PY{k}{assert} \PY{n+nb}{all}\PY{p}{(}\PY{p}{[}\PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n+nb}{str}\PY{p}{)} \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{list\PYZus{}names}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+
+
+    In your answer above, if you see something like
+\texttt{zipfile.Zipfile(\textquotesingle{}data.zip\textquotesingle{}...},
+we suggest changing it to read \texttt{zipfile.Zipfile(dest\_path...} or
+alternately \texttt{zipfile.Zipfile(target\_file\_name...}. In general,
+we \textbf{strongly suggest having your filenames hard coded ONLY ONCE}
+in any given iPython notebook. It is very dangerous to hard code things
+twice, because if you change one but forget to change the other, you can
+end up with very hard to find bugs.
+
+    Now display the files' names and their sizes.
+
+If you're not sure how to proceed, read about the attributes of a
+\texttt{ZipFile} object in the Python docs linked above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{my\PYZus{}zip}\PY{o}{.}\PY{n}{infolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} [<ZipInfo filename='violations.csv' compress\_type=deflate external\_attr=0x20 file\_size=3726206 compress\_size=286253>,
+         <ZipInfo filename='businesses.csv' compress\_type=deflate external\_attr=0x20 file\_size=660231 compress\_size=178549>,
+         <ZipInfo filename='inspections.csv' compress\_type=deflate external\_attr=0x20 file\_size=466106 compress\_size=83198>,
+         <ZipInfo filename='legend.csv' compress\_type=deflate external\_attr=0x20 file\_size=120 compress\_size=104>]
+\end{Verbatim}
+            
+    Often when working with zipped data, we'll never unzip the actual
+zipfile. This saves space on our local computer. However, for this HW,
+the files are small, so we're just going to unzip everything. This has
+the added benefit that you can look inside the csv files using a text
+editor, which might be handy for more deeply understanding what's going
+on. The cell below will unzip the csv files into a subdirectory called
+"data". Try running the code below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{pathlib} \PY{k}{import} \PY{n}{Path}
+        \PY{n}{data\PYZus{}dir} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{my\PYZus{}zip}\PY{o}{.}\PY{n}{extractall}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{p}{)}
+\end{Verbatim}
+
+
+    When you ran the code above, nothing gets printed. However, this code
+should have created a folder called "data", and in it should be the four
+CSV files. Assuming you're using Datahub, use your web browser to verify
+that these files were created, and try to open up \texttt{legend.csv} to
+see what's inside. You should see something that looks like:
+
+\begin{verbatim}
+"Minimum_Score","Maximum_Score","Description"
+0,70,"Poor"
+71,85,"Needs Improvement"
+86,90,"Adequate"
+91,100,"Good"
+\end{verbatim}
+
+    \subsubsection{Question 1b: Programatically Looking Inside the
+Files}\label{question-1b-programatically-looking-inside-the-files}
+
+    What we see when we opened the file above is good news! It looks like
+this file is indeed a csv file. Let's check the other three files. This
+time, rather than opening up the files manually, let's use Python to
+print out the first 5 lines of each. The \texttt{ds100\_utils} library
+has a method called \texttt{head} that will allow you to retrieve the
+first N lines of a file as a list. For example
+\texttt{ds100\_utils.head(\textquotesingle{}data/legend.csv\textquotesingle{},\ 5)}
+will return the first 5 lines of "data/legend.csv". Try using this
+function to print out the first 5 lines of all four files that we just
+extracted from the zipfile.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{my\PYZus{}zip}\PY{o}{.}\PY{n}{namelist}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{ds100\PYZus{}utils}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{data\PYZus{}dir}\PY{o}{/}\PY{n}{file}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['"business\_id","date","description"\textbackslash{}n', '19,"20171211","Inadequate food safety knowledge or lack of certified food safety manager"\textbackslash{}n', '19,"20171211","Unapproved or unmaintained equipment or utensils"\textbackslash{}n', '19,"20160513","Unapproved or unmaintained equipment or utensils  [ date violation corrected: 12/11/2017 ]"\textbackslash{}n', '19,"20160513","Unclean or degraded floors walls or ceilings  [ date violation corrected: 12/11/2017 ]"\textbackslash{}n']
+['"business\_id","name","address","city","state","postal\_code","latitude","longitude","phone\_number"\textbackslash{}n', '19,"NRGIZE LIFESTYLE CAFE","1200 VAN NESS AVE, 3RD FLOOR","San Francisco","CA","94109","37.786848","-122.421547","+14157763262"\textbackslash{}n', '24,"OMNI S.F. HOTEL - 2ND FLOOR PANTRY","500 CALIFORNIA ST, 2ND  FLOOR","San Francisco","CA","94104","37.792888","-122.403135","+14156779494"\textbackslash{}n', '31,"NORMAN\textbackslash{}'S ICE CREAM AND FREEZES","2801 LEAVENWORTH ST ","San Francisco","CA","94133","37.807155","-122.419004",""\textbackslash{}n', '45,"CHARLIE\textbackslash{}'S DELI CAFE","3202 FOLSOM ST ","San Francisco","CA","94110","37.747114","-122.413641","+14156415051"\textbackslash{}n']
+['"business\_id","score","date","type"\textbackslash{}n', '19,"94","20160513","routine"\textbackslash{}n', '19,"94","20171211","routine"\textbackslash{}n', '24,"98","20171101","routine"\textbackslash{}n', '24,"98","20161005","routine"\textbackslash{}n']
+['"Minimum\_Score","Maximum\_Score","Description"\textbackslash{}n', '0,70,"Poor"\textbackslash{}n', '71,85,"Needs Improvement"\textbackslash{}n', '86,90,"Adequate"\textbackslash{}n', '91,100,"Good"\textbackslash{}n']
+
+    \end{Verbatim}
+
+    \subsubsection{Question 1c: Reading in the
+Files}\label{question-1c-reading-in-the-files}
+
+Based on the above information, let's attempt to load
+\texttt{businesses.csv}, \texttt{inspections.csv}, and
+\texttt{violations.csv} into pandas data frames with the following
+names: \texttt{bus}, \texttt{ins}, and \texttt{vio} respectively.
+
+\emph{Note:} Because of character encoding issues one of the files
+(\texttt{bus}) will require an additional argument
+\texttt{encoding=\textquotesingle{}ISO-8859-1\textquotesingle{}} when
+calling \texttt{pd.read\_csv}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} path to directory containing data}
+         \PY{n}{dsDir} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make sure to use these names}
+         \PY{n}{bus} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{dsDir}\PY{o}{/}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{businesses.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ISO\PYZhy{}8859\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ins} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{dsDir}\PY{o}{/}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inspections.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{vio} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{dsDir}\PY{o}{/}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{violations.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now that you've read in the files, let's try some \texttt{pd.DataFrame}
+methods. Use the \texttt{DataFrame.head} command to show the top few
+lines of the \texttt{bus}, \texttt{ins}, and \texttt{vio} dataframes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{bus}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    business\_id                                name  \textbackslash{}
+         0           19               NRGIZE LIFESTYLE CAFE   
+         1           24  OMNI S.F. HOTEL - 2ND FLOOR PANTRY   
+         2           31      NORMAN'S ICE CREAM AND FREEZES   
+         
+                                  address           city state postal\_code   latitude  \textbackslash{}
+         0   1200 VAN NESS AVE, 3RD FLOOR  San Francisco    CA       94109  37.786848   
+         1  500 CALIFORNIA ST, 2ND  FLOOR  San Francisco    CA       94104  37.792888   
+         2           2801 LEAVENWORTH ST   San Francisco    CA       94133  37.807155   
+         
+             longitude  phone\_number  
+         0 -122.421547  +14157763262  
+         1 -122.403135  +14156779494  
+         2 -122.419004           NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    business\_id  score      date     type
+         0           19     94  20160513  routine
+         1           19     94  20171211  routine
+         2           24     98  20171101  routine
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{vio}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    business\_id      date                                        description
+         0           19  20171211  Inadequate food safety knowledge or lack of ce{\ldots}
+         1           19  20171211   Unapproved or unmaintained equipment or utensils
+         2           19  20160513  Unapproved or unmaintained equipment or utensi{\ldots}
+\end{Verbatim}
+            
+    The \texttt{DataFrame.describe} method can also be handy for computing
+summaries of various statistics of our dataframes. Try it out with each
+of our 3 dataframes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{bus}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}         business\_id     latitude    longitude
+         count   6406.000000  3270.000000  3270.000000
+         mean   53058.248049    37.773662  -122.425791
+         std    34928.238762     0.022910     0.027762
+         min       19.000000    37.668824  -122.510896
+         25\%     7405.500000    37.760487  -122.436844
+         50\%    68294.500000    37.780435  -122.418855
+         75\%    83446.500000    37.789951  -122.406609
+         max    94574.000000    37.824494  -122.368257
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{ins}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}         business\_id         score
+         count  14222.000000  14222.000000
+         mean   45138.752637     90.697370
+         std    34497.913056      8.088705
+         min       19.000000     48.000000
+         25\%     5634.000000     86.000000
+         50\%    61462.000000     92.000000
+         75\%    78074.000000     96.000000
+         max    94231.000000    100.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{vio}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}         business\_id
+         count  39042.000000
+         mean   45674.440244
+         std    34172.433276
+         min       19.000000
+         25\%     4959.000000
+         50\%    62060.000000
+         75\%    77681.000000
+         max    94231.000000
+\end{Verbatim}
+            
+    \subsubsection{Question 1d: Verify Your Files were Read
+Correctly}\label{question-1d-verify-your-files-were-read-correctly}
+
+    Now, we perform some sanity checks for you to verify that you loaded the
+data with the right structure. Run the following cells to load some
+basic utilities (you do not need to change these at all):
+
+    First, we check the basic structure of the data frames you created:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{assert} \PY{n+nb}{all}\PY{p}{(}\PY{n}{bus}\PY{o}{.}\PY{n}{columns} \PY{o}{==} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{city}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone\PYZus{}number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{6400} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{bus}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{6420}
+         
+         \PY{k}{assert} \PY{n+nb}{all}\PY{p}{(}\PY{n}{ins}\PY{o}{.}\PY{n}{columns} \PY{o}{==} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{14210} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ins}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{14250}
+         
+         \PY{k}{assert} \PY{n+nb}{all}\PY{p}{(}\PY{n}{vio}\PY{o}{.}\PY{n}{columns} \PY{o}{==} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{39020} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{vio}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{39080}
+\end{Verbatim}
+
+
+    Next we'll check that the statistics match what we expect. The following
+are hard-coded statistical summaries of the correct data. .
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{bus\PYZus{}summary} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{68294.5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{94574.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{19.0}\PY{p}{\PYZcb{}}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{37.780435}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{37.824494}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{37.668824}\PY{p}{\PYZcb{}}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mf}{122.41885450000001}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mf}{122.368257}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mf}{122.510896}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{ins\PYZus{}summary} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{61462.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{94231.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{19.0}\PY{p}{\PYZcb{}}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{92.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{100.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{48.0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{vio\PYZus{}summary} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{62060.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{94231.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{19.0}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{What we expect from your Businesses dataframe:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{bus\PYZus{}summary}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{What we expect from your Inspections dataframe:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{ins\PYZus{}summary}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{What we expect from your Violations dataframe:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{vio\PYZus{}summary}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+What we expect from your Businesses dataframe:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+     business_id   latitude   longitude
+min         19.0  37.668824 -122.510896
+50%      68294.5  37.780435 -122.418855
+max      94574.0  37.824494 -122.368257
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+What we expect from your Inspections dataframe:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+     business_id  score
+min         19.0   48.0
+50%      61462.0   92.0
+max      94231.0  100.0
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+What we expect from your Violations dataframe:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+     business_id
+min         19.0
+50%      62060.0
+max      94231.0
+    \end{verbatim}
+
+    
+    The code below defines a testing function that we'll use to verify that
+your data has the same statistics as what we expect. Run these cells to
+define the function. The \texttt{df\_allclose} function has this name
+because we are verifying that all of the statistics for your dataframe
+are close to the expected values. Why not \texttt{df\_allequal}? It's a
+bad idea in almost all cases to compare two floating point values like
+37.780435, as rounding error can cause spurious failures.
+
+    Do not delete the empty cell below!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Run this cell to load this utility comparison function that we will use in various}
+         \PY{l+s+sd}{tests below (both tests you can see and those we run internally for grading).}
+         
+         \PY{l+s+sd}{Do not modify the function in any way.}
+         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{k}{def} \PY{n+nf}{df\PYZus{}allclose}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{n}{desired}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{rtol}\PY{o}{=}\PY{l+m+mf}{5e\PYZhy{}2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compare selected columns of two dataframes on a few summary statistics.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Compute the min, median and max of the two dataframes on the given columns, and compare}
+         \PY{l+s+sd}{    that they match numerically to the given relative tolerance.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    If they don\PYZsq{}t match, an AssertionError is raised (by `numpy.testing`).}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k+kn}{import} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{testing} \PY{k}{as} \PY{n+nn}{npt}
+             
+             \PY{c+c1}{\PYZsh{} summary statistics to compare on}
+             \PY{n}{stats} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{50}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} For the desired values, we can provide a full DF with the same structure as}
+             \PY{c+c1}{\PYZsh{} the actual data, or pre\PYZhy{}computed summary statistics.}
+             \PY{c+c1}{\PYZsh{} We assume a pre\PYZhy{}computed summary was provided if columns is None. In that case, }
+             \PY{c+c1}{\PYZsh{} `desired` *must* have the same structure as the actual\PYZsq{}s summary}
+             \PY{k}{if} \PY{n}{columns} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{des} \PY{o}{=} \PY{n}{desired}
+                 \PY{n}{columns} \PY{o}{=} \PY{n}{desired}\PY{o}{.}\PY{n}{columns}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{des} \PY{o}{=} \PY{n}{desired}\PY{p}{[}\PY{n}{columns}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{stats}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} Extract summary stats from actual DF}
+             \PY{n}{act} \PY{o}{=} \PY{n}{actual}\PY{p}{[}\PY{n}{columns}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{stats}\PY{p}{]}
+         
+             \PY{n}{npt}\PY{o}{.}\PY{n}{assert\PYZus{}allclose}\PY{p}{(}\PY{n}{act}\PY{p}{,} \PY{n}{des}\PY{p}{,} \PY{n}{rtol}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now let's run the automated tests. If your dataframes are correct, then
+the following cell will seem to do nothing, which is a good thing!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} These tests will raise an exception if your variables don\PYZsq{}t match numerically the correct}
+         \PY{c+c1}{\PYZsh{} answers in the main summary statistics shown above.}
+         \PY{n}{df\PYZus{}allclose}\PY{p}{(}\PY{n}{bus}\PY{p}{,} \PY{n}{bus\PYZus{}summary}\PY{p}{)}
+         \PY{n}{df\PYZus{}allclose}\PY{p}{(}\PY{n}{ins}\PY{p}{,} \PY{n}{ins\PYZus{}summary}\PY{p}{)}
+         \PY{n}{df\PYZus{}allclose}\PY{p}{(}\PY{n}{vio}\PY{p}{,} \PY{n}{vio\PYZus{}summary}\PY{p}{)}
+\end{Verbatim}
+
+
+    Do not edit the empty cell below. These are hidden tests!
+
+    \subsubsection{Question 1e: Identifying Issues with the
+Data}\label{question-1e-identifying-issues-with-the-data}
+
+    Use the \texttt{head} command on your three files again. This time,
+describe at least one potential problem with the data you see. Consider
+issues with missing values and bad data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{q1e\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{l+s+s2}{The variable }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{phone\PYZus{}number}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ in }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bus}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ dataframe has a missing value in first five rows. And business\PYZus{}id should }
+         \PY{l+s+s2}{be regarded as qualitative variable instead of quantitative variable, so it is improper for id to have numeric}
+         \PY{l+s+s2}{features.}
+         
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bus}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{vio}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q1e\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   business\_id                                name  \textbackslash{}
+0           19               NRGIZE LIFESTYLE CAFE   
+1           24  OMNI S.F. HOTEL - 2ND FLOOR PANTRY   
+2           31      NORMAN'S ICE CREAM AND FREEZES   
+3           45                 CHARLIE'S DELI CAFE   
+4           48                          ART'S CAFE   
+
+                         address           city state postal\_code   latitude  \textbackslash{}
+0   1200 VAN NESS AVE, 3RD FLOOR  San Francisco    CA       94109  37.786848   
+1  500 CALIFORNIA ST, 2ND  FLOOR  San Francisco    CA       94104  37.792888   
+2           2801 LEAVENWORTH ST   San Francisco    CA       94133  37.807155   
+3                3202 FOLSOM ST   San Francisco    CA       94110  37.747114   
+4                 747 IRVING ST   San Francisco    CA       94122  37.764013   
+
+    longitude  phone\_number  
+0 -122.421547  +14157763262  
+1 -122.403135  +14156779494  
+2 -122.419004           NaN  
+3 -122.413641  +14156415051  
+4 -122.465749  +14156657440  
+   business\_id  score      date     type
+0           19     94  20160513  routine
+1           19     94  20171211  routine
+2           24     98  20171101  routine
+3           24     98  20161005  routine
+4           24     96  20160311  routine
+   business\_id      date                                        description
+0           19  20171211  Inadequate food safety knowledge or lack of ce{\ldots}
+1           19  20171211   Unapproved or unmaintained equipment or utensils
+2           19  20160513  Unapproved or unmaintained equipment or utensi{\ldots}
+3           19  20160513  Unclean or degraded floors walls or ceilings  {\ldots}
+4           19  20160513  Food safety certificate or food handler card n{\ldots}
+
+
+The variable "phone\_number" in "bus" dataframe has a missing value in first five rows. And business\_id should 
+be regarded as qualitative variable instead of quantitative variable, so it is improper for id to have numeric
+features.
+
+
+
+    \end{Verbatim}
+
+    We will explore each file in turn, including determining its granularity
+and primary keys and exploring many of the variables indivdually. Let's
+begin with the businesses file, which has been read into the
+\texttt{bus} dataframe.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{2: Examining the Business
+data}\label{examining-the-business-data}
+
+From its name alone, we expect the \texttt{businesses.csv} file to
+contain information about the restaurants. Let's investigate the
+granularity of this dataset.
+
+\textbf{Important note: From now on, the local autograder tests will not
+be comprehensive. You can pass the automated tests in your notebook but
+still fail tests in the autograder.} Please be sure to check your
+results carefully.
+
+    \subsubsection{Question 2a}\label{question-2a}
+
+Examining the entries in \texttt{bus}, is the \texttt{business\_id}
+unique for each record? Your code should compute the answer, i.e. don't
+just hard code "True".
+
+Hint: use \texttt{value\_counts()} or \texttt{unique()} to determine if
+the \texttt{business\_id} series has any duplicates.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{is\PYZus{}business\PYZus{}id\PYZus{}unique} \PY{o}{=} \PY{n+nb}{all}\PY{p}{(}\PY{p}{[}\PY{n+nb}{id} \PY{k}{for} \PY{n+nb}{id} \PY{o+ow}{in} \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{assert} \PY{n}{is\PYZus{}business\PYZus{}id\PYZus{}unique}
+\end{Verbatim}
+
+
+    \subsubsection{Question 2b}\label{question-2b}
+
+With this information, you can address the question of granularity.
+Answer the questions below.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many records are there?
+\item
+  What does each record represent (e.g., a store, a chain, a
+  transaction)?\\
+\item
+  What is the primary key?
+\end{enumerate}
+
+Please write your answer in the \texttt{q2b\_answer} variable. You may
+create new cells to run code as long as you don't delete the cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} use this cell for scratch work}
+         \PY{c+c1}{\PYZsh{} consider using groupby or value\PYZus{}counts() on the \PYZsq{}name\PYZsq{} or \PYZsq{}business\PYZus{}id\PYZsq{} }
+         \PY{n}{ans\PYZus{}1} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{bus}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ans\PYZus{}2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Each record represents a store.}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{ans\PYZus{}3} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The primary key is business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{q2b\PYZus{}answer} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1. There are }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ans\PYZus{}1}\PY{p}{)} \PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ records.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{2. }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{ans\PYZus{}2} \PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{3. }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{ans\PYZus{}3}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q2b\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1. There are 6406 records.
+2. Each record represents a store.
+3. The primary key is business\_id.
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{3: Zip code}\label{zip-code}
+
+Next, let's explore some of the variables in the business table. We
+begin by examining the postal code.
+
+\subsubsection{Question 3a}\label{question-3a}
+
+What kind of values are in the \texttt{postal\ code} column in the
+\texttt{bus} data frame?\\
+1. Are zip codes quantitative or qualitative? If qualitative, is it
+ordinal or nominal? 1. How are the zip code values encoded in python:
+ints, floats, strings, booleans ...?
+
+To answer the second question you might want to examine a particular
+entry using the Python \texttt{type} command.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} str
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Use this cell for your explorations.}
+         \PY{n}{q3a\PYZus{}answer} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{1. Zip codes are qualitative and it is normial.}
+         \PY{l+s+s2}{2. Zip code values are encoded in python as string.}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q3a\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1. Zip codes are qualitative and it is normial.
+2. Zip code values are encoded in python as string.
+
+    \end{Verbatim}
+
+    \subsubsection{Question 3b}\label{question-3b}
+
+To explore the zip code values, it makes sense to examine counts, i.e.,
+the number of records that have the same zip code value. This is
+essentially answering the question: How many restaurants are in each zip
+code?
+
+    In the cell below, create a series where the index is the postal code
+and the value is the number of businesses in that postal code. For
+example, in 94110 (hey that's my old zip code!), there should be 596
+businesses. Your series should be in descending order, i.e. 94110 should
+be at the top.
+
+For this answer, use \texttt{groupby}, \texttt{size}, and
+\texttt{sort\_values}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{zip\PYZus{}counts} \PY{o}{=} \PY{n}{bus}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    Unless you know pandas well already, your answer probably has one subtle
+flaw in it: it fails to take into account businesses with missing zip
+codes. Unfortunately, missing data is just a reality when we're working
+with real data.
+
+    There are a couple of ways to include null postal codes in the
+zip\_counts series above. One approach is to use \texttt{fillna}, which
+will replace all null (a.k.a. NaN) values with a string of our choosing.
+In the example below, I picked "?????". When you run the code below, you
+should see that there are 240 businesses with missing zip code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{zip\PYZus{}counts} \PY{o}{=} \PY{n}{bus}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{?????}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postal\PYZus{}code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{zip\PYZus{}counts}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} postal\_code
+         94110    596
+         94103    552
+         94102    462
+         94107    460
+         94133    426
+         94109    380
+         94111    277
+         94122    273
+         94118    249
+         94115    243
+         ?????    240
+         94105    232
+         94108    228
+         94114    223
+         94117    204
+         dtype: int64
+\end{Verbatim}
+            
+    An alternate approach is to use the DataFrame \texttt{value\_counts}
+method with the optional argument \texttt{dropna=False}, which will
+ensure that null values are counted. In this case, the index will be
+\texttt{NaN} for the row corresponding to a null postal code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{bus}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postal\PYZus{}code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{dropna}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 94110    596
+         94103    552
+         94102    462
+         94107    460
+         94133    426
+         94109    380
+         94111    277
+         94122    273
+         94118    249
+         94115    243
+         NaN      240
+         94105    232
+         94108    228
+         94114    223
+         94117    204
+         Name: postal\_code, dtype: int64
+\end{Verbatim}
+            
+    Missing zip codes aren't our only problem. There is also some bad data
+where the postal code got messed up, e.g., there are 3 'Ca' and 3 'CA'
+values. Additionally, there are some extended postal codes that are 9
+digits long, rather than the typical 5 digits.
+
+Let's clean up the extended zip codes by dropping the digits beyond the
+first 5. Rather than deleting replacing the old values in the
+\texttt{postal\_code} columnm, we'll instead create a new column called
+\texttt{postal\_code\_5}.
+
+The reason we're making a new column is because it's typically good
+practice to keep the original values when we are manipulating data. This
+makes it easier to recover from mistakes, and also makes it more clear
+that we are not working with the original raw data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Run me}
+         \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{bus}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}       business\_id                                  name  \textbackslash{}
+         0              19                 NRGIZE LIFESTYLE CAFE   
+         1              24    OMNI S.F. HOTEL - 2ND FLOOR PANTRY   
+         2              31        NORMAN'S ICE CREAM AND FREEZES   
+         3              45                   CHARLIE'S DELI CAFE   
+         4              48                            ART'S CAFE   
+         5              54                   RHODA GOLDMAN PLAZA   
+         6              56                            CAFE X + O   
+         7              58                           OASIS GRILL   
+         8              61                              CHOWDERS   
+         9              66                      STARBUCKS COFFEE   
+         10             67                       REVOLUTION CAFE   
+         11             73                     DINO'S UNCLE VITO   
+         12             76    OMNI S.F. HOTEL - 3RD FLOOR PANTRY   
+         13             77  OMNI S.F. HOTEL - EMPLOYEE CAFETERIA   
+         14             80                       LAW SCHOOL CAFE   
+         15             81                   CLUB ED/BON APPETIT   
+         16             88                          J.B.'S PLACE   
+         17             95                                  VEGA   
+         18             98                          XOX TRUFFLES   
+         19             99         J \& M A-1 CAFE RESTAURANT LLC   
+         20            101                      CABLE CAR CORNER   
+         21            102                     AKIKO'S SUSHI BAR   
+         22            108                             RUE LEPIC   
+         23            116             THE WATERFRONT RESTAURANT   
+         24            121                          AKIKOS SUSHI   
+         25            125                           CENTERFOLDS   
+         26            134                                  MINT   
+         27            140                        CAFE MADELEINE   
+         28            141          AFC SUSHI @ MOLLIE STONE'S 2   
+         29            146                 DEJA VU PIZZA \& PASTA   
+         {\ldots}           {\ldots}                                   {\ldots}   
+         6376        94305               ROSAMUNDE SAUSAGE GRILL   
+         6377        94310                         YOKAI EXPRESS   
+         6378        94318                        YUANBAO JIAOZI   
+         6379        94331                     MATCHA CAFE MAIKO   
+         6380        94334              SUBWAY SANDWICHES \#53761   
+         6381        94337              SUBWAY SANDWICHES \#61240   
+         6382        94354               RAINBOW MARKET AND DELI   
+         6383        94387                       FOUNDATION CAFE   
+         6384        94388                       FOUNDATION CAFE   
+         6385        94394                        KOKIO REPUBLIC   
+         6386        94408                     SIZZLING POT KING   
+         6387        94409                           AUGUST HALL   
+         6388        94412                 NATIVE BAKING COMPANY   
+         6389        94433                        GREEK TOWN LLC   
+         6390        94442                           SIMPLY CAFE   
+         6391        94456                UBER-ATG (BON APPETIT)   
+         6392        94460                           DOBBS FERRY   
+         6393        94465                        BEAUTIFULL LLC   
+         6394        94468                             BAR CRENN   
+         6395        94502                   NEW FORTUNE DIM SUM   
+         6396        94521                JOE \& THE JUICE HOWARD   
+         6397        94522                        CAFE JOSEPHINE   
+         6398        94537         BON APPETIT @ USF- OUTTA HERE   
+         6399        94540                          FOAM USA LLC   
+         6400        94542                            OCEAN THAI   
+         6401        94544                          D'MAIZE CAFE   
+         6402        94555             EASY BREEZY FROZEN YOGURT   
+         6403        94571                THE PHOENIX PASTIFICIO   
+         6404        94572                 BROADWAY DIM SUM CAFE   
+         6405        94574                           BINKA BITES   
+         
+                                     address           city state postal\_code  \textbackslash{}
+         0      1200 VAN NESS AVE, 3RD FLOOR  San Francisco    CA       94109   
+         1     500 CALIFORNIA ST, 2ND  FLOOR  San Francisco    CA       94104   
+         2              2801 LEAVENWORTH ST   San Francisco    CA       94133   
+         3                   3202 FOLSOM ST   San Francisco    CA       94110   
+         4                    747 IRVING ST   San Francisco    CA       94122   
+         5                     2180 POST ST   San Francisco    CA       94115   
+         6                   1799 CHURCH ST   San Francisco    CA       94131   
+         7                      91 DRUMM ST   San Francisco    CA       94111   
+         8                 PIER 39  SPACE A3  San Francisco    CA       94133   
+         9                   1800 IRVING ST   San Francisco    CA       94122   
+         10                    3248 22ND ST   San Francisco    CA       94110   
+         11                2101 FILLMORE ST   San Francisco    CA       94115   
+         12     500 CALIFORNIA ST, 3RD FLOOR  San Francisco    CA       94104   
+         13      500 CALIFORNIA ST, BASEMENT  San Francisco    CA       94104   
+         14                  2199 FULTON ST   San Francisco    CA       94117   
+         15                    2350 TURK ST   San Francisco    CA       94117   
+         16                    1435 17TH ST   San Francisco    CA       94107   
+         17                419 CORTLAND AVE   San Francisco    CA       94110   
+         18                754 COLUMBUS AVE   San Francisco    CA       94133   
+         19                     779 CLAY ST   San Francisco    CA       94108   
+         20                  1099 POWELL ST   San Francisco    CA       94108   
+         21                   542A MASON ST   San Francisco    CA       94102   
+         22                      900 PINE ST  San Francisco    CA       94108   
+         23               PIER 7 EMBARCADERO  San Francisco    CA       94111   
+         24                     431 BUSH ST   San Francisco    CA       94108   
+         25                 391 BROADWAY ST   San Francisco    CA       94133   
+         26                400 MCALLISTER ST  San Francisco    CA       94102   
+         27               300 CALIFORNIA ST   San Francisco    CA       94104   
+         28              2435 CALIFORNIA ST   San Francisco    CA       94115   
+         29                    3227 16TH ST   San Francisco    CA       94103   
+         {\ldots}                             {\ldots}            {\ldots}   {\ldots}         {\ldots}   
+         6376                 545 HAIGHT ST   San Francisco    CA       94117   
+         6377                    135 4TH ST   San Francisco    CA       94103   
+         6378                2110 IRVING ST   San Francisco    CA       94122   
+         6379            1581 WEBSTER ST 175  San Francisco    CA       94115   
+         6380               160 BROADWAY ST   San Francisco    CA       94111   
+         6381              425 D BATTERY ST   San Francisco    CA       94111   
+         6382                 684 LARKIN ST   San Francisco    CA       94109   
+         6383                    645 5TH ST   San Francisco    CA       94107   
+         6384                 335 KEARNY ST   San Francisco    CA       94108   
+         6385                   428 11TH ST   San Francisco    CA       94109   
+         6386                    139 8TH ST   San Francisco    CA       94103   
+         6387                  420 MASON ST   San Francisco    CA         NaN   
+         6388           1324 FITZGERALD AVE   San Francisco    CA       94124   
+         6389                    88 02ND ST   San Francisco    CA       94105   
+         6390                  340 GROVE ST   San Francisco    CA       94102   
+         6391             581 20TH ST 2ND FL  San Francisco    CA       94107   
+         6392                  409 GOUGH ST   San Francisco    CA       94102   
+         6393            3401 CALIFORNIA ST   San Francisco    CA       94118   
+         6394              3131 FILLMORE ST   San Francisco    CA       94123   
+         6395               811 STOCKTON ST   San Francisco    CA       94108   
+         6396                 301 HOWARD ST   San Francisco    CA       94105   
+         6397                199 MUSEUM WAY   San Francisco    CA       94114   
+         6398                2130 FULTON ST   San Francisco    CA       94117   
+         6399               1745 TARAVAL ST   San Francisco    CA       94116   
+         6400                2545 OCEAN AVE   San Francisco    CA       94132   
+         6401                 50 PHELAN AVE   San Francisco    CA       94112   
+         6402            44 WEST PORTAL AVE   San Francisco    CA       94127   
+         6403                200 CLEMENT ST   San Francisco    CA       94118   
+         6404               684 BROADWAY ST   San Francisco    CA       94133   
+         6405               2241 GEARY BLVD   San Francisco    CA       94115   
+         
+                latitude   longitude  phone\_number postal\_code\_5  
+         0     37.786848 -122.421547  +14157763262         94109  
+         1     37.792888 -122.403135  +14156779494         94104  
+         2     37.807155 -122.419004           NaN         94133  
+         3     37.747114 -122.413641  +14156415051         94110  
+         4     37.764013 -122.465749  +14156657440         94122  
+         5     37.784626 -122.437734  +14153455060         94115  
+         6     37.742325 -122.426476  +14158263535         94131  
+         7     37.794483 -122.396584  +14158341942         94111  
+         8     37.808240 -122.410189  +14153914737         94133  
+         9     37.763578 -122.477461  +14152427970         94122  
+         10    37.755419 -122.419542  +14156420474         94110  
+         11    37.788932 -122.433895  +14159224700         94115  
+         12    37.792888 -122.403135  +14156779494         94104  
+         13    37.792888 -122.403135  +14156779494         94104  
+         14    37.774941 -122.452797  +14154222268         94117  
+         15    37.778468 -122.448484  +14154225849         94117  
+         16    37.765003 -122.398084  +14155848446         94107  
+         17    37.739207 -122.417447  +14152856000         94110  
+         18    37.801665 -122.412104  +14154214814         94133  
+         19    37.794293 -122.405967  +14156057219         94108  
+         20    37.794615 -122.409705  +14153625925         94108  
+         21    37.788484 -122.410045  +14159898218         94102  
+         22    37.790868 -122.410854  +14154746070         94108  
+         23    37.793874 -122.396464  +14153912696         94111  
+         24    37.790643 -122.404676  +14153973218         94108  
+         25    37.798233 -122.403637  +14158340662         94133  
+         26    37.780247 -122.418974  +14155515942         94102  
+         27    37.793268 -122.400323  +14153623332         94104  
+         28    37.788773 -122.434697  +14155674902         94115  
+         29    37.764713 -122.424709  +14152551600         94103  
+         {\ldots}         {\ldots}         {\ldots}           {\ldots}           {\ldots}  
+         6376        NaN         NaN  +14154376851         94117  
+         6377        NaN         NaN  +14158234502         94103  
+         6378        NaN         NaN  +14156013979         94122  
+         6379        NaN         NaN  +14150009434         94115  
+         6380        NaN         NaN  +14158861913         94111  
+         6381        NaN         NaN  +14153991549         94111  
+         6382        NaN         NaN  +14157664681         94109  
+         6383        NaN         NaN  +14153503301         94107  
+         6384        NaN         NaN           NaN         94108  
+         6385        NaN         NaN  +14157996404         94109  
+         6386        NaN         NaN  +14158028899         94103  
+         6387        NaN         NaN           NaN           NaN  
+         6388        NaN         NaN           NaN         94124  
+         6389        NaN         NaN  +14152408032         94105  
+         6390        NaN         NaN  +14156587659         94102  
+         6391        NaN         NaN  +14158184997         94107  
+         6392        NaN         NaN  +14155517709         94102  
+         6393        NaN         NaN  +14157289080         94118  
+         6394        NaN         NaN           NaN         94123  
+         6395        NaN         NaN  +14153991511         94108  
+         6396        NaN         NaN           NaN         94105  
+         6397        NaN         NaN  +14153508976         94114  
+         6398        NaN         NaN  +14153604802         94117  
+         6399        NaN         NaN  +14156060018         94116  
+         6400        NaN         NaN  +14155857251         94132  
+         6401        NaN         NaN  +14154240604         94112  
+         6402        NaN         NaN  +14155053351         94127  
+         6403        NaN         NaN  +14154726100         94118  
+         6404        NaN         NaN           NaN         94133  
+         6405        NaN         NaN  +14157712907         94115  
+         
+         [6406 rows x 10 columns]
+\end{Verbatim}
+            
+    \subsubsection{Question 3c : A Closer Look at Missing Zip
+Codes}\label{question-3c-a-closer-look-at-missing-zip-codes}
+
+Let's look more closely at businesses with missing zip codes. We'll see
+that many zip codes are missing for a good reason. Examine the
+businesses with missing zipcode values. Pay attention to their
+addresses. Do you notice anything interesting? You might need to look at
+a bunch of entries, i.e. don't just look at the first five.
+
+\emph{Hint: You can use the series \texttt{isnull} method to create a
+binary array, which can then be used to show only rows of the dataframe
+that contain null values.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Use this cell for your explorations.}
+         \PY{n}{q3c\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{The most addresses of businesses that have null post code are off the grid or approved private locations or approved locations.}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bus}\PY{p}{[}\PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q3c\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+address
+ OFF THE GRID                                  69
+ APPROVED PRIVATE LOCATIONS                     6
+ APPROVED LOCATIONS                             4
+VARIOUS LOCATIONS                               2
+ JUSTIN HERMAN PLAZA                            2
+428 11TH ST                                     2
+ OTG                                            2
+OFF THE GRID                                    2
+ FRONT, BETWEEN CALIFORNIA \& SACRAMENTO ST      1
+ GOLDEN GATE PARK                               1
+dtype: int64
+
+The most addresses of businesses that have null post code are off the grid or approved private locations or approved locations.
+
+    \end{Verbatim}
+
+    \subsubsection{Question 3d: Incorrect Zip
+Codes}\label{question-3d-incorrect-zip-codes}
+
+    This dataset is supposed to be only about San Francisco, so let's set up
+a list of all San Francisco zip codes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{all\PYZus{}sf\PYZus{}zip\PYZus{}codes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94102}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94103}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94104}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94105}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94107}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94108}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94109}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94110}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94111}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94112}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94114}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94115}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94116}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94117}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94118}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94119}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94120}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94121}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94122}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94123}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94124}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94125}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94126}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94127}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94128}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94129}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94130}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94131}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94132}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94133}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94134}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94137}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94139}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94140}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94141}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94142}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94143}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94144}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94145}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94146}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94147}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94151}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94158}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94159}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94160}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94161}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94163}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94164}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94172}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94177}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94188}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Set \texttt{weird\_zip\_code\_businesses} equal to a new dataframe
+showing only rows corresponding to zip codes that are not valid AND not
+NaN. Use the \texttt{postal\_code\_5} field.
+
+\emph{Hint: The \texttt{\textasciitilde{}} operator inverts a boolean
+array. Use in conjunction with \texttt{isin}.}
+
+\emph{Hint: The \texttt{notnull} method can be used to form a useful
+boolean array for this problem.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses} \PY{o}{=} \PY{n}{bus}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{all\PYZus{}sf\PYZus{}zip\PYZus{}codes}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}       business\_id                                               name  \textbackslash{}
+         1211         5208                             GOLDEN GATE YACHT CLUB   
+         1372         5755                                      J \& J VENDING   
+         1373         5757                                  RICO VENDING, INC   
+         2258        36547                                    EPIC ROASTHOUSE   
+         2293        37167  INTERCONTINENTAL SAN FRANCISCO EMPLOYEE CAFETERIA   
+         2295        37169     INTERCONTINENTAL SAN FRANCISCO 4TH FL. KITCHEN   
+         2846        64540                                     LEO'S HOT DOGS   
+         2852        64660                               HAIGHT STREET MARKET   
+         2857        64738                                          JAPACURRY   
+         2969        65856                                        BAMBOO ASIA   
+         3142        67875                                 THE CHAIRMAN TRUCK   
+         3665        72127                                   REVOLUTION FOODS   
+         3758        74674                                     ELI'S HOT DOGS   
+         4853        83744                                      LA FROMAGERIE   
+         5060        85459                                         ORBIT ROOM   
+         5325        87059                              COFFEE BAR-MONTGOMERY   
+         5480        88139                                        TACOLICIOUS   
+         5894        90733                                          JEEPSILOG   
+         6002        91249                                          AN THE GO   
+         6130        92141                                       ALFARO TRUCK   
+         6300        93484                               CARDONA'S FOOD TRUCK   
+         
+                                    address           city state postal\_code  \textbackslash{}
+         1211                   1 YACHT RD   San Francisco    CA         941   
+         1372       VARIOUS LOACATIONS (17)  San Francisco    CA       94545   
+         1373             VARIOUS LOCATIONS  San Francisco    CA       94066   
+         2258       PIER 26 EMBARARCADERO    San Francisco    CA       95105   
+         2293       888 HOWARD ST 2ND FLOOR  San Francisco    CA       94013   
+         2295       888 HOWARD ST 4TH FLOOR  San Francisco    CA       94013   
+         2846              2301 MISSION ST   San Francisco    CA          CA   
+         2852               1530 HAIGHT ST   San Francisco    CA       92672   
+         2857                      PUBLIC    San Francisco    CA          CA   
+         2969             41 MONTGOMERY ST   San Francisco    CA       94101   
+         3142                OFF THE GRID    San Francisco    CA       00000   
+         3665                5383 CAPWELL    San Francisco    CA       94621   
+         3758            101 BAYSHORE BLVD   San Francisco    CA       94014   
+         4853            101 MONTGOMERY ST   San Francisco    CA       94101   
+         5060               1900 MARKET ST   San Francisco    CA       94602   
+         5325  101 MONTGOMERY ST SUITE 101C  San Francisco    CA       94014   
+         5480             2250 CHESTNUT ST   San Francisco    CA          Ca   
+         5894                2 MARINA BLVD   San Francisco    CA       94080   
+         6002                OFF THE GRID    San Francisco    CA       00000   
+         6130              332 VALENCIA ST   San Francisco    CA       64110   
+         6300              2430 WHIPPLE RD   San Francisco    CA       94544   
+         
+                latitude   longitude  phone\_number postal\_code\_5  
+         1211  37.807878 -122.442499  +14153462628           941  
+         1372        NaN         NaN  +14156750910         94545  
+         1373        NaN         NaN  +14155836723         94066  
+         2258  37.788962 -122.387941  +14153699955         95105  
+         2293  37.781664 -122.404778  +14156166532         94013  
+         2295  37.781664 -122.404778  +14156166532         94013  
+         2846  37.760054 -122.419166  +14152406434            CA  
+         2852  37.769957 -122.447533  +14152550643         92672  
+         2857  37.777122 -122.419639  +14152444785            CA  
+         2969  37.774998 -122.418299  +14156246790         94101  
+         3142  37.777122 -122.419639  +14158461711         00000  
+         3665        NaN         NaN           NaN         94621  
+         3758        NaN         NaN  +14158301168         94014  
+         4853        NaN         NaN  +14153682943         94101  
+         5060        NaN         NaN  +14153705584         94602  
+         5325        NaN         NaN  +14158158774         94014  
+         5480        NaN         NaN  +14156496077            Ca  
+         5894        NaN         NaN  +14157035586         94080  
+         6002        NaN         NaN  +14158192000         00000  
+         6130        NaN         NaN  +14159409273         64110  
+         6300        NaN         NaN  +14153365990         94544  
+\end{Verbatim}
+            
+    If we were doing very serious data analysis, we might indivdually look
+up every one of these strange records. Let's focus on just two of them:
+zip codes 94545 and 94602. Use a search engine to identify what cities
+these zip codes appear in. Try to explain why you think these two zip
+codes appear in your dataframe. For the one with zip code 94602, try
+searching for the business name and locate its real address.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses}\PY{p}{[}\PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{94602}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}       business\_id        name          address           city state  \textbackslash{}
+         5060        85459  ORBIT ROOM  1900 MARKET ST   San Francisco    CA   
+         
+              postal\_code  latitude  longitude  phone\_number postal\_code\_5  
+         5060       94602       NaN        NaN  +14153705584         94602  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses}\PY{p}{[}\PY{n}{weird\PYZus{}zip\PYZus{}code\PYZus{}businesses}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{94545}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}       business\_id           name                  address           city  \textbackslash{}
+         1372         5755  J \& J VENDING  VARIOUS LOACATIONS (17)  San Francisco   
+         
+              state postal\_code  latitude  longitude  phone\_number postal\_code\_5  
+         1372    CA       94545       NaN        NaN  +14156750910         94545  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Use this cell for your explorations.}
+         \PY{n}{q3d\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{94545 \PYZhy{} The real address of J \PYZam{} J Vending is 33500 Western Ave, Union City, CA 94587. And there is another J And Amp J Vending located at 2700 Mccone Avenue, Hayward, CA 94545. These two addresses and zip codes may be mixed up. }
+         
+         \PY{l+s+s2}{94602 \PYZhy{} The real address of Orbit Room is 1900 Market St, San Francisco, CA 94102. Its wrong zip code appeared to be recorded wrongly with only one different digit.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q3d\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+94545 - The real address of J \& J Vending is 33500 Western Ave, Union City, CA 94587. And there is another J And Amp J Vending located at 2700 Mccone Avenue, Hayward, CA 94545. These two addresses and zip codes may be mixed up. 
+
+94602 - The real address of Orbit Room is 1900 Market St, San Francisco, CA 94102. Its wrong zip code appeared to be recorded wrongly with only one different digit.
+
+
+    \end{Verbatim}
+
+    \subsubsection{Question 3e}\label{question-3e}
+
+We often want to clean the data to improve our analysis. This cleaning
+might include changing values for a variable or dropping records.
+
+Let's correct 94602 to the more likely value based on your analysis.
+Let's modify the derived field \texttt{zip\_code} using
+\texttt{bus{[}\textquotesingle{}zip\_code\textquotesingle{}{]}.str.replace}
+to replace 94602 with the correct value based on this business's real
+address that you learn by using a search engine.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} WARNING: Be careful when uncommenting the line below, it will set the entire column to NaN unless you }
+         \PY{c+c1}{\PYZsh{} put something to the right of the ellipses.}
+         \PY{c+c1}{\PYZsh{} bus[\PYZsq{}postal\PYZus{}code\PYZus{}5\PYZsq{}] = ... }
+         \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{94602}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{94102}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{assert} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94602}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{4: Latitude and Longitude}\label{latitude-and-longitude}
+
+Let's also consider latitude and longitude values and get a sense of how
+many are missing.
+
+\subsubsection{Question 4a}\label{question-4a}
+
+How many businesses are missing longitude values?
+
+\emph{Hint: Use isnull.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{missing\PYZus{}latlongs} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Do not delete the empty cell below!
+
+    As a somewhat contrived exercise in data manipulation, let's try to
+identify which zip codes are missing the most longitude values.
+
+    Throughout problems 4a and 4b, let's focus on only the "dense" zip codes
+of the city of San Francisco, listed below as \texttt{sf\_dense\_zip}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{sf\PYZus{}dense\PYZus{}zip} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94102}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94103}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94104}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94105}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94107}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94108}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94109}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94110}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94111}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94112}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94114}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94115}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94116}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94117}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94118}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94121}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94122}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94123}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94124}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94127}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94131}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94132}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94133}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{94134}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    In the cell below, create a series where the index is
+\texttt{postal\_code\_5}, and the value is the number of businesses with
+missing longitudes in that zip code. Your series should be in descending
+order. Only businesses from \texttt{sf\_dense\_zip} should be included.
+
+For example, 94110 should be at the top of the series, with the value
+294.
+
+*Hint: Start by making a new dataframe called \texttt{bus\_sf} that only
+has businesses from \texttt{sf\_dense\_zip}.
+
+\emph{Hint: Create a custom function to compute the number of null
+entries in a series, and use this function with the \texttt{agg}
+method.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{bus\PYZus{}sf} \PY{o}{=} \PY{n}{bus}\PY{p}{[}\PY{n}{bus}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{sf\PYZus{}dense\PYZus{}zip}\PY{p}{)}\PY{p}{]}
+         \PY{n}{num\PYZus{}missing\PYZus{}in\PYZus{}each\PYZus{}zip} \PY{o}{=} \PY{n}{bus\PYZus{}sf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{num\PYZus{}missing\PYZus{}in\PYZus{}each\PYZus{}zip}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} postal\_code\_5
+         94110    294
+         94103    285
+         94107    275
+         94102    222
+         94109    171
+         94133    159
+         94122    132
+         94111    129
+         94105    127
+         94124    118
+         94118    117
+         94114    111
+         94108     98
+         94115     95
+         94117     86
+         94104     79
+         94112     77
+         94132     71
+         94123     68
+         94121     60
+         94116     42
+         94134     36
+         94127     30
+         94131     16
+         Name: longitude, dtype: int64
+\end{Verbatim}
+            
+    Do not edit the empty cell below.
+
+    \subsubsection{Question 4b}\label{question-4b}
+
+In question 4a, we counted the number of null values per zip code. Let's
+now count the proportion of null values.
+
+Create a new dataframe of counts of the null and proportion of null
+values, storing the result in \texttt{bus\_sf\_latlong}. It should have
+an index called \texttt{postal\_code\_5} and should also have 3 columns:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{null\ count}: The number of missing values for the zip code.
+\item
+  \texttt{not\ null\ count}: The proportion of present values for the
+  zip code.
+\item
+  \texttt{fraction\ null}: The fraction of values that are null for the
+  zip code.
+\end{enumerate}
+
+Your data frame should be sorted by the fraction null in descending
+order.
+
+Recommended approach: Build three series with the appropriate names and
+data and then combine them into a dataframe. This will require some new
+syntax you may not have seen. You already have code from question 4a
+that computes the \texttt{null\ count} series.
+
+To pursue this recommended approach, you might find these two functions
+useful:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{rename}: Renames the values of a series.
+\item
+  \texttt{pd.concat}: Can be used to combine a list of Series into a
+  dataframe. Example: \texttt{pd.concat({[}s1,\ s2,\ s3{]},\ axis=1)}
+  will combine series 1, 2, and 3 into a dataframe.
+\end{itemize}
+
+\emph{Hint: You can use the divison operator to compute the ratio of two
+series.}
+
+\emph{Hint: The \textasciitilde{} operator can invert a binary array. Or
+alternately, the \texttt{notnull} method can be used to create a binary
+array from a series.}
+
+\emph{Note: An alternate approach is to create three aggregation
+functions as pass them in a list to the \texttt{agg} function.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{null\PYZus{}count} \PY{o}{=} \PY{n}{bus\PYZus{}sf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{null count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{not\PYZus{}null\PYZus{}count} \PY{o}{=} \PY{n}{bus\PYZus{}sf}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postal\PYZus{}code\PYZus{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{not null count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fraction\PYZus{}missing} \PY{o}{=} \PY{p}{(}\PY{n}{null\PYZus{}count} \PY{o}{/} \PY{p}{(}\PY{n}{not\PYZus{}null\PYZus{}count}\PY{o}{+}\PY{n}{null\PYZus{}count}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fraction null}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fraction\PYZus{}missing\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{null\PYZus{}count}\PY{p}{,}\PY{n}{not\PYZus{}null\PYZus{}count}\PY{p}{,}\PY{n}{fraction\PYZus{}missing}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{fraction\PYZus{}missing\PYZus{}df} \PY{o}{=} \PY{n}{fraction\PYZus{}missing\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fraction null}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    Do not edit the empty cell below.
+
+    \subsection{Summary of the Business
+Data}\label{summary-of-the-business-data}
+
+Before we move on to explore the other data, let's take stock of what we
+have learned and the implications of our findings on future analysis.
+
+\begin{itemize}
+\tightlist
+\item
+  We found that the business id is unique across records and so we may
+  be able to use it as a key in joining tables.
+\item
+  We found that there are many errors with the zip codes. As a result,
+  we may want to drop the records with zip codes outside of San
+  Francisco or to treat them differently. For some of the bad values, we
+  could take the time to look up the restaurant address online and fix
+  these errors.\\
+\item
+  We found that there are a huge number of missing longitude (and
+  latitude) values. Fixing would require a lot of work, but could in
+  principle be automated for business with well formed addresses.
+\end{itemize}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{5: Investigate the Inspection
+Data}\label{investigate-the-inspection-data}
+
+Let's now turn to the inspection DataFrame. Earlier, we found that
+\texttt{ins} has 4 columns named \texttt{business\_id}, \texttt{score},
+\texttt{date} and \texttt{type}. In this section, we determine the
+granularity of \texttt{ins} and investigate the kinds of information
+provided for the inspections.
+
+    Let's start by looking again at the first 5 rows of \texttt{ins} to see
+what we're working with.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    business\_id  score      date     type
+         0           19     94  20160513  routine
+         1           19     94  20171211  routine
+         2           24     98  20171101  routine
+         3           24     98  20161005  routine
+         4           24     96  20160311  routine
+\end{Verbatim}
+            
+    \subsubsection{Question 5a}\label{question-5a}
+
+From calling \texttt{head}, we know that each row in this table
+corresponds to the inspection of a single business. Let's get a sense of
+the total number of inspections conducted, as well as the total number
+of unique businesses that occur in the dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} The number of rows in ins}
+         \PY{n}{rows\PYZus{}in\PYZus{}table} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ins}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} The number of unique business IDs in ins.}
+         \PY{n}{unique\PYZus{}ins\PYZus{}ids} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Do not delete the empty cell below!
+
+    As you should have seen above, we have an average of roughly 3
+inspections per business.
+
+    \subsubsection{Question 5b}\label{question-5b}
+
+Next, we examine the Series in the \texttt{ins} dataframe called
+\texttt{type}. From examining the first few rows of \texttt{ins}, we see
+that \texttt{type} is a string and one of its values is 'routine',
+presumably for a routine inspection. What values does \texttt{type} take
+on? How many occurrences of each value is in the DataFrame? What are the
+implications for further analysis? For this problem, you need only fill
+in the string with a description; there's no specific dataframe or
+series that you need to create.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{ins}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} type
+         complaint        1
+         routine      14221
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{q5b\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{Series }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ only takes on }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{complaint}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ with 1 occurrences and }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{routine}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ with 14221 occurrences.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q5b\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Series "type" only takes on "complaint" with 1 occurrences and "routine" with 14221 occurrences.
+
+
+    \end{Verbatim}
+
+    \subsubsection{Question 5c}\label{question-5c}
+
+In this question, we're going to try to figure out what years the data
+spans. Unfortunately, the dates in our file are formatted as strings
+such as \texttt{20160503}, which are a little tricky to interpret. The
+ideal solution for this problem is to modify our dates so that they are
+in an appropriate format for analysis.
+
+In the cell below, we attempt to add a new column to \texttt{ins} called
+\texttt{new\_date} which contains the \texttt{date} stored as a datetime
+object. This calls the \texttt{pd.to\_datetime} method, which converts a
+series of string representations of dates (and/or times) to a series
+containing a datetime object.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}    business\_id  score      date     type                      new\_date
+         0           19     94  20160513  routine 1970-01-01 00:00:00.020160513
+         1           19     94  20171211  routine 1970-01-01 00:00:00.020171211
+         2           24     98  20171101  routine 1970-01-01 00:00:00.020171101
+         3           24     98  20161005  routine 1970-01-01 00:00:00.020161005
+         4           24     96  20160311  routine 1970-01-01 00:00:00.020160311
+\end{Verbatim}
+            
+    As you'll see, the resulting \texttt{new\_date} column doesn't make any
+sense. This is because the default behavior of the
+\texttt{to\_datetime()} method does not properly process the passed
+string. We can fix this by telling \texttt{to\_datetime} how to do its
+job by providing a format string.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}    business\_id  score      date     type   new\_date
+         0           19     94  20160513  routine 2016-05-13
+         1           19     94  20171211  routine 2017-12-11
+         2           24     98  20171101  routine 2017-11-01
+         3           24     98  20161005  routine 2016-10-05
+         4           24     96  20160311  routine 2016-03-11
+\end{Verbatim}
+            
+    This is still not ideal for our analysis, so we'll add one more column
+that is just equal to the year by using the \texttt{dt.year} property of
+the new series we just created.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}
+         \PY{n}{ins}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:}    business\_id  score      date     type   new\_date  year
+         0           19     94  20160513  routine 2016-05-13  2016
+         1           19     94  20171211  routine 2017-12-11  2017
+         2           24     98  20171101  routine 2017-11-01  2017
+         3           24     98  20161005  routine 2016-10-05  2016
+         4           24     96  20160311  routine 2016-03-11  2016
+\end{Verbatim}
+            
+    Now that we have this handy \texttt{year} column, we can try to
+understand our data better.
+
+What range of years is covered in this data set? Are there roughly the
+same number of inspections each year? Provide your answer in text only.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{ins}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} year
+         2015    3305
+         2016    5443
+         2017    5166
+         2018     308
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{q5c\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{The range of years from 2015\PYZhy{}2018 is covered in this data set and there are not roughly the same number of inspections each year. 2015 has 3305 inspections, while 2016, 2017, 2018 has 5443, 5166, 308 inspections respectively.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q5c\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The range of years from 2015-2018 is covered in this data set and there are not roughly the same number of inspections each year. 2015 has 3305 inspections, while 2016, 2017, 2018 has 5443, 5166, 308 inspections respectively.
+
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{6: Explore inspection score}\label{explore-inspection-score}
+
+    \subsubsection{Question 6a}\label{question-6a}
+
+Let's look at the distribution of scores. As we saw before when we
+called \texttt{head} on this data, inspection scores appear to be
+integer values. The discreteness of this variable means that we can use
+a barplot to visualize the distribution of the inspection score. Find
+the counts of the number of inspections for each score. Specifically,
+create a series in \texttt{scoreCts} where the index is the score and
+the value is the number of times that score was given.
+
+Then make a bar plot of these counts. It should look like the image
+below. It does not need to look exactly the same, but it should be
+fairly close.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{scoreCts} \PY{o}{=} \PY{n}{ins}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{scoreCts}\PY{o}{.}\PY{n}{index}
+         \PY{n}{y} \PY{o}{=} \PY{n}{scoreCts}\PY{o}{.}\PY{n}{values}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <Container object of 47 artists>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_120_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 6b}\label{question-6b}
+
+Describe the qualities of the distribution of the inspections scores
+based on your bar plot. Consider the mode(s), symmetry, tails, gaps, and
+anamolous values. Are there any unusual features of this distribution?
+What do your observations imply about the scores?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{q6b\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{The mode is 100. And the distribution of the inspections scores is asymmetry including more high score and few low score. It implies that people tend to give higher score if the experience can be acceptable.}
+         
+         \PY{l+s+s2}{The tails including some extreme low scores like 55, 57 and so on. They maybe caused by some extrme unhappy experience of limited customers.}
+         
+         \PY{l+s+s2}{The score gaps happen a lot extremely at 91, 93. They maybe caused by preference to certain scores like 90 because it is a perfectly round number.}
+         
+         \PY{l+s+s2}{Anomalous values are mostly extreme low scores caused by review in bad faith or extreme horrible experience of some customers.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q6b\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The mode is 100. And the distribution of the inspections scores is asymmetry including more high score and few low score. It implies that people tend to give higher score if the experience can be acceptable.
+
+The tails including some extreme low scores like 55, 57 and so on. They maybe caused by some extrme unhappy experience of limited customers.
+
+The score gaps happen a lot extremely at 91, 93. They maybe caused by preference to certain scores like 90 because it is a perfectly round number.
+
+Anomalous values are mostly extreme low scores caused by review in bad faith or extreme horrible experience of some customers.
+
+
+    \end{Verbatim}
+
+    \subsubsection{Question 6c}\label{question-6c}
+
+    Let's figure out which restaurants had the worst scores ever. Let's
+start by creating a new dataframe called \texttt{ins\_named}. It should
+be exactly the same as \texttt{ins}, except that it should have the name
+and address of every business, as determined by the \texttt{bus}
+dataframe. If a \texttt{business\_id} in \texttt{ins} does not exist in
+\texttt{bus}, the name and address should be given as NaN.
+
+\emph{Hint: Use the merge method to join the \texttt{ins} dataframe with
+the appropriate portion of the \texttt{bus} dataframe.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{ins\PYZus{}named} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{ins}\PY{p}{,}\PY{n}{bus}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{business\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{business\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Using this data frame, identify the restaurant with the lowest
+inspection scores ever. Optionally: head to yelp.com and look up the
+reviews page for this restaurant. Copy and paste anything interesting
+you want to share.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{ins\PYZus{}named}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} business\_id                  86647
+         score                           48
+         date                      20160907
+         type                       routine
+         new\_date       2016-09-07 00:00:00
+         year                          2016
+         name                       DA CAFE
+         address            407 CLEMENT ST 
+         Name: 13179, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{q6c\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{The restaurant with the lowest inspection scores ever is DA CAFE located at 407 Clement Street.}
+         \PY{l+s+s2}{Interesting Review: Entomophagy, otherwise known as the consumption of insects, has been around for thousands of years in some cultures. Not only do these insects apparently taste good, but they}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{re an inexpensive and nutritious food source.}
+         \PY{l+s+s2}{No kidding?}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q6c\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The restaurant with the lowest inspection scores ever is DA CAFE located at 407 Clement Street.
+Interesting Review: Entomophagy, otherwise known as the consumption of insects, has been around for thousands of years in some cultures. Not only do these insects apparently taste good, but they're an inexpensive and nutritious food source.
+No kidding?
+
+    \end{Verbatim}
+
+    Just for fun you can also look up the restaurants with the best scores.
+You'll see that lots of them aren't restaurants at all!
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{7: Restaurant Ratings Over
+Time}\label{restaurant-ratings-over-time}
+
+    Let's consider various scenarios involving restaurants with multiple
+ratings over time.
+
+    \subsubsection{Question 7a}\label{question-7a}
+
+    Let's see which restaurant has had the most extreme change in their
+ratings. Let the "swing" of a restaurant be defined as the difference
+between its lowest and highest ever rating. If a restaurant has been
+reviewed fewer than two times, its swing is zero. Using whatever
+technique you want to use, identify the three restaurants that are tied
+for the maximum swing value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{score\PYZus{}group\PYZus{}by\PYZus{}id} \PY{o}{=} \PY{n}{ins\PYZus{}named}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{score\PYZus{}group\PYZus{}by\PYZus{}id}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{max}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb}{min}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} business\_id
+         71440    39
+         2044     39
+         73978    39
+         Name: score, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{ins\PYZus{}named}\PY{p}{[}\PY{n}{ins\PYZus{}named}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{71440}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2044}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{73978}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:}       business\_id  score      date     type   new\_date  year  \textbackslash{}
+         1207         2044     98  20170130  routine 2017-01-30  2017   
+         1208         2044     93  20160328  routine 2016-03-28  2016   
+         1209         2044     59  20160204  routine 2016-02-04  2016   
+         9491        71440     57  20161121  routine 2016-11-21  2016   
+         9492        71440     96  20150817  routine 2015-08-17  2015   
+         9713        73978     61  20150316  routine 2015-03-16  2015   
+         9714        73978    100  20160913  routine 2016-09-13  2016   
+         
+                                      name             address  
+         1207          JOANIE'S DINER INC.  1329 COLUMBUS AVE   
+         1208          JOANIE'S DINER INC.  1329 COLUMBUS AVE   
+         1209          JOANIE'S DINER INC.  1329 COLUMBUS AVE   
+         9491  NEW GARDEN RESTAURANT, INC.      716 KEARNY ST   
+         9492  NEW GARDEN RESTAURANT, INC.      716 KEARNY ST   
+         9713                     THE CREW    1330 NORIEGA ST   
+         9714                     THE CREW    1330 NORIEGA ST   
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{q7a\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{The three restaurants that are tied for the maximum swing value 39 is JOANIE}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S DINER INC., NEW GARDEN RESTAURANT, INC. and THE CREW.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q7a\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The three restaurants that are tied for the maximum swing value 39 is JOANIE'S DINER INC., NEW GARDEN RESTAURANT, INC. and THE CREW.
+
+
+    \end{Verbatim}
+
+    \subsubsection{Question 7b}\label{question-7b}
+
+To get a sense of the number of times each restaurant has been
+inspected, create a multi-indexed dataframe called
+\texttt{inspections\_by\_id\_and\_year} where each row corresponds to
+data about a given business in a single year, and there is a single data
+column named \texttt{count} that represents the number of inspections
+for that business in that year. The first index in the MultiIndex should
+be on \texttt{business\_id}, and the second should be on \texttt{year}.
+
+An example row in this dataframe might look tell you that business\_id
+is 573, year is 2017, and count is 4.
+
+\emph{Hint: Use groupby to group based on both the \texttt{business\_id}
+and the \texttt{year}.}
+
+\emph{Hint: Use rename to change the name of the column to
+\texttt{count}.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{inspections\PYZus{}by\PYZus{}id\PYZus{}and\PYZus{}year} \PY{o}{=} \PY{n}{ins\PYZus{}named}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{ins\PYZus{}named}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ins\PYZus{}named}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{inspections\PYZus{}by\PYZus{}id\PYZus{}and\PYZus{}year} \PY{o}{=} \PY{n}{inspections\PYZus{}by\PYZus{}id\PYZus{}and\PYZus{}year}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{inspections\PYZus{}by\PYZus{}id\PYZus{}and\PYZus{}year}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{19}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2016}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} count    True
+         Name: 2016, dtype: bool
+\end{Verbatim}
+            
+    Do not edit the empty cell below!
+
+    You should see that some businesses are inspected many times in a single
+year. Let's get a sense of the distribution of the counts of the number
+of inspections by calling \texttt{value\_counts}. There are quite a lot
+of businesses with 2 inspections in the same year, so it seems like it
+might be interesting to see what we can learn from such businesses.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{inspections\PYZus{}by\PYZus{}id\PYZus{}and\PYZus{}year}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} 1    9531
+         2    2175
+         3     111
+         4       2
+         Name: count, dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{Question 7c}\label{question-7c}
+
+What's the relationship between the first and second scores for the
+businesses with 2 inspections in a year? Do they typically improve? For
+simplicity, let's focus on only 2016 for this problem.
+
+First, make a dataframe called \texttt{scores\_pairs\_by\_business}
+indexed by \texttt{business\_id} (containing only businesses with
+exactly 2 inspections in 2016). This dataframe contains the field
+\texttt{score\_pair} consisting of the score pairs ordered
+chronologically \texttt{{[}first\_score,\ second\_score{]}}.
+
+Plot these scores. That is, make a scatter plot to display these pairs
+of scores. Include on the plot a reference line with slope 1.
+
+You may find the functions \texttt{sort\_values}, \texttt{groupby},
+\texttt{filter} and \texttt{agg} helpful, though not all necessary.
+
+The first few rows of the resulting table should look something like:
+
+\begin{verbatim}
+<tr style="text-align: right;">
+  <th></th>
+  <th>score_pair</th>
+</tr>
+<tr>
+  <th>business_id</th>
+  <th></th>
+</tr>
+\end{verbatim}
+
+\begin{verbatim}
+<tr>
+  <th>24</th>
+  <td>[96, 98]</td>
+</tr>
+<tr>
+  <th>45</th>
+  <td>[78, 84]</td>
+</tr>
+<tr>
+  <th>66</th>
+  <td>[98, 100]</td>
+</tr>
+<tr>
+  <th>67</th>
+  <td>[87, 94]</td>
+</tr>
+<tr>
+  <th>76</th>
+  <td>[100, 98]</td>
+</tr>
+\end{verbatim}
+
+The scatter plot shoud look like this:
+
+ \emph{Note: Each score pair must be a list type; numpy arrays will not
+pass the autograder.}
+
+\emph{Hint: Use the \texttt{filter} method from lecture 3 to create a
+new dataframe that only contains restaurants that received exactly 2
+inspections.}
+
+\emph{Hint: Our answer is a single line of code that uses
+\texttt{sort\_values}, \texttt{groupby}, \texttt{filter},
+\texttt{groupby}, \texttt{agg}, and \texttt{rename} in that order. Your
+answer does not need to use these exact methods.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{=}\PY{n}{ins}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{2016}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score\PYZus{}pair}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{24}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} list
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:}             score\_pair
+         business\_id           
+         24            [96, 98]
+         45            [78, 84]
+         66           [98, 100]
+         67            [87, 94]
+         76           [100, 98]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business} \PY{o}{=} \PY{n}{ins}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{ins}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{2016}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{business\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score\PYZus{}pair}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} For some odd reason, we can\PYZsq{}t just pass `list` into `.agg` so we define this function:}
+         \PY{c+c1}{\PYZsh{} You may or may not use it}
+         
+         \PY{k}{def} \PY{n+nf}{group\PYZus{}to\PYZus{}list}\PY{p}{(}\PY{n}{group}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{list}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{columns} \PY{o}{==} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score\PYZus{}pair}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} Create scatter plot here.}
+         \PY{n}{x}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{y}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{scores\PYZus{}pairs\PYZus{}by\PYZus{}business}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{second score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{55}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{55}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{x2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{55}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{y2}\PY{o}{=}\PY{n}{x2}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{y2}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_148_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 7d}\label{question-7d}
+
+Another way to compare the scores from the two inspections is to examine
+the difference in scores. Subtract the first score from the second in
+\texttt{scores\_pairs\_by\_business}. Make a histogram of these
+differences in the scores. We might expect these differences to be
+positive, indicating an improvement from the first to the second
+inspection.
+
+The histogram should look like this:
+
+\emph{Hint: Use \texttt{second\_score} and \texttt{first\_score} created
+in the scatter plot code above.}
+
+\emph{Hint: Convert the scores into numpy arrays to make them easier to
+deal with.}
+
+\emph{Hint: Try changing the number of bins when you call plt.hist.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} Create histogram here}
+         \PY{n}{subtract} \PY{o}{=} \PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{x}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{subtract}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{36}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} (array([   1.,    0.,    3.,    2.,    4.,    4.,    8.,    7.,   17.,
+                   15.,   34.,   66.,   90.,  135.,  218.,  151.,  115.,   63.,
+                   44.,   38.,   20.,   11.,    5.,    5.,    5.,    5.,    4.,
+                    3.,    0.,    2.,    1.]),
+          array([-28, -26, -24, -22, -20, -18, -16, -14, -12, -10,  -8,  -6,  -4,
+                  -2,   0,   2,   4,   6,   8,  10,  12,  14,  16,  18,  20,  22,
+                  24,  26,  28,  30,  32,  34]),
+          <a list of 31 Patch objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_150_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Question 7e}\label{question-7e}
+
+If a restaurant's score improves from the first to the second
+inspection, what do you expect to see in the scatter plot that you made
+in question 7c? What do you see?
+
+If a restaurant's score improves from the first to the second
+inspection, how would this be reflected in the histogram of the
+difference in the scores that you made in question 7d? What do you see?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{q7c\PYZus{}answer} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{1. If a restaurant}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s score improves from the first to the second inspection, then the corresponding point in the scatter plot are above the reference line. And I see more restaurants}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ scores improve from the first to the second inspection.}
+         
+         \PY{l+s+s2}{2. If a restaurant}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s score improves from the first to the second inspection, then the corresponding number will be added to the bar at the right side of 0. And I see more restaurants}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ scores improve from the first to the second inspection and restaurants that get worse scores are mostly at the left neighborhood of 0.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{q7c\PYZus{}answer}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+1. If a restaurant's score improves from the first to the second inspection, then the corresponding point in the scatter plot are above the reference line. And I see more restaurants' scores improve from the first to the second inspection.
+
+2. If a restaurant's score improves from the first to the second inspection, then the corresponding number will be added to the bar at the right side of 0. And I see more restaurants' scores improve from the first to the second inspection and restaurants that get worse scores are mostly at the left neighborhood of 0.
+
+
+    \end{Verbatim}
+
+    \subsection{Summary of the Inspections
+Data}\label{summary-of-the-inspections-data}
+
+What we have learned about the inspections data? What might be some next
+steps in our investigation?
+
+\begin{itemize}
+\tightlist
+\item
+  We found that the records are at the inspection level and that we have
+  inspections for multiple years.\\
+\item
+  We also found that many restaurants have more than one inspection a
+  year.
+\item
+  By joining the business and inspection data, we identified the name of
+  the restaurant with the worst rating and optionally the names of the
+  restaurants with the best rating.
+\item
+  We identified the restaurants that have had the largest swing in
+  rating over time.
+\item
+  We also examined the relationship between the scores when a restaurant
+  has multiple inspections in a year. Our findings were a bit
+  counterintuitive and may warrant further investigation.
+\end{itemize}
+
+    \subsection{Congrats !}\label{congrats}
+
+Congrats! You are finished with HW1.
+
+    \subsection{Submission}\label{submission}
+
+You're done!
+
+Before submitting this assignment, ensure to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Restart the Kernel (in the menubar, select
+  Kernel-\textgreater{}Restart \& Run All)
+\item
+  Validate the notebook by clicking the "Validate" button
+\end{enumerate}
+
+Finally, make sure to \textbf{submit} the assignment via the Assignments
+tab in Datahub
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
